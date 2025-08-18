@@ -164,3 +164,4 @@ Once Clerk is set up, you can:
 
 **Note**: This setup provides a complete authentication solution. The sign-in and sign-up pages are already styled to match the 1% Better design system with interactive cursor effects and modern animations.
 
+

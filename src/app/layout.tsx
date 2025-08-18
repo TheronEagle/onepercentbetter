@@ -7,7 +7,7 @@ import MouseAnimation from '@/components/mouse-animation'
 import FloatingActionButton from '@/components/floating-action-button'
 import { AnimationProvider } from '@/lib/animation-context'
 import { ToastProvider } from '@/components/toast-notification'
-import { ClerkProviderWrapper } from '@/lib/clerk-provider'
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -68,35 +68,35 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <head>
-        {/* Security Headers */}
-        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
-        <meta httpEquiv="X-Frame-Options" content="DENY" />
-        <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
-        <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-        <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
-        
-        {/* Performance and SEO */}
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="theme-color" content="#667eea" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="1% Better" />
-        
-        {/* Preconnect to external domains */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://images.unsplash.com" />
-        
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-      </head>
-      <body className={`${inter.className} font-premium antialiased bg-background text-foreground`}>
-        <ClerkProviderWrapper>
+    <ClerkProvider>
+      <html lang="en" className="scroll-smooth">
+        <head>
+          {/* Security Headers */}
+          <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+          <meta httpEquiv="X-Frame-Options" content="DENY" />
+          <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
+          <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+          <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+          
+          {/* Performance and SEO */}
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+          <meta name="theme-color" content="#667eea" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta name="apple-mobile-web-app-title" content="1% Better" />
+          
+          {/* Preconnect to external domains */}
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link rel="preconnect" href="https://images.unsplash.com" />
+          
+          {/* Favicon */}
+          <link rel="icon" href="/favicon.ico" sizes="any" />
+          <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+          <link rel="manifest" href="/manifest.json" />
+        </head>
+        <body className={`${inter.className} font-premium antialiased bg-background text-foreground`}>
           <AnimationProvider>
             <ToastProvider>
               <MouseAnimation />
@@ -108,8 +108,8 @@ export default function RootLayout({
               <FloatingActionButton />
             </ToastProvider>
           </AnimationProvider>
-        </ClerkProviderWrapper>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 } 
