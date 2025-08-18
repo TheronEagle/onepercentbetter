@@ -7,7 +7,7 @@ import MouseAnimation from '@/components/mouse-animation'
 import FloatingActionButton from '@/components/floating-action-button'
 import { AnimationProvider } from '@/lib/animation-context'
 import { ToastProvider } from '@/components/toast-notification'
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProviderWrapper } from "@/lib/clerk-provider";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -68,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProviderWrapper>
       <html lang="en" className="scroll-smooth">
         <head>
           {/* Security Headers */}
@@ -110,6 +110,6 @@ export default function RootLayout({
           </AnimationProvider>
         </body>
       </html>
-    </ClerkProvider>
+    </ClerkProviderWrapper>
   )
 } 
