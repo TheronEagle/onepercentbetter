@@ -24,7 +24,7 @@ export default async function AdminLayout({
 
   // Only import Clerk functions if configured
   try {
-    const { auth, currentUser } = await import("@clerk/nextjs");
+    const { auth, currentUser } = await import("@clerk/nextjs/server");
     const { userId } = auth();
     const user = await currentUser();
 
