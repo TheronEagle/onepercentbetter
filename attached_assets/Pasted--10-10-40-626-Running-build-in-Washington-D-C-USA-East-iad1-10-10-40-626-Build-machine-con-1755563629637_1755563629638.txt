@@ -1,0 +1,572 @@
+[10:10:40.626] Running build in Washington, D.C., USA (East) – iad1
+[10:10:40.626] Build machine configuration: 2 cores, 8 GB
+[10:10:40.670] Cloning github.com/TheronEagle/onepercentbetter (Branch: main, Commit: e449cad)
+[10:10:40.678] Skipping build cache, deployment was triggered without cache.
+[10:10:41.151] Cloning completed: 480.000ms
+[10:10:43.292] Running "vercel build"
+[10:10:43.683] Vercel CLI 46.0.2
+[10:10:44.055] Installing dependencies...
+[10:10:46.858] npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+[10:10:47.721] npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+[10:10:47.877] npm warn deprecated glob@7.1.7: Glob versions prior to v9 are no longer supported
+[10:10:48.846] npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+[10:10:48.891] npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+[10:10:51.001] npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+[10:11:00.045] 
+[10:11:00.047] added 536 packages in 16s
+[10:11:00.047] 
+[10:11:00.048] 240 packages are looking for funding
+[10:11:00.048]   run `npm fund` for details
+[10:11:00.197] Detected Next.js version: 14.2.32
+[10:11:00.199] Running "npx prisma generate && npm run build"
+[10:11:01.233] Prisma schema loaded from prisma/schema.prisma
+[10:11:01.913] 
+[10:11:01.914] ✔ Generated Prisma Client (v5.22.0) to ./node_modules/@prisma/client in 343ms
+[10:11:01.915] 
+[10:11:01.915] Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+[10:11:01.915] 
+[10:11:01.915] Tip: Want to react to database changes in your app as they happen? Discover how with Pulse: https://pris.ly/tip-1-pulse
+[10:11:01.915] 
+[10:11:02.276] 
+[10:11:02.276] > 1percent-better@0.1.0 build
+[10:11:02.277] > next build
+[10:11:02.277] 
+[10:11:02.990] Attention: Next.js now collects completely anonymous telemetry regarding usage.
+[10:11:02.991] This information is used to shape Next.js' roadmap and prioritize features.
+[10:11:02.991] You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+[10:11:02.991] https://nextjs.org/telemetry
+[10:11:02.991] 
+[10:11:03.047]   ▲ Next.js 14.2.32
+[10:11:03.048] 
+[10:11:03.112]    Creating an optimized production build ...
+[10:11:14.359] <w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (166kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+[10:11:23.710]  ✓ Compiled successfully
+[10:11:23.711]    Linting and checking validity of types ...
+[10:11:28.888] 
+[10:11:28.889] ./src/app/admin/products/page.tsx
+[10:11:28.889] 601:19  Warning: Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images.  jsx-a11y/alt-text
+[10:11:28.889] 
+[10:11:28.889] info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+[10:11:35.034]    Collecting page data ...
+[10:11:36.628]    Generating static pages (0/26) ...
+[10:11:37.030]    Generating static pages (6/26) 
+[10:11:37.241] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.242]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.242]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.242]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.242]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.243]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.243]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.243]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.243]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.244]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.245]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:37.245]   digest: '3547244411'
+[10:11:37.245] }
+[10:11:37.272] 
+[10:11:37.273] Error occurred prerendering page "/_not-found". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:37.273] 
+[10:11:37.273] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.273]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.273]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.273]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.273]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.273]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.273]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.273]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.273]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.273]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.274]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.330] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.331]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.331]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.331]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.333]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.333]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.333]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.333]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.334]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.334]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.334]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:37.334]   digest: '3547244411'
+[10:11:37.334] }
+[10:11:37.421] 
+[10:11:37.422] Error occurred prerendering page "/about". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:37.422] 
+[10:11:37.422] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.422]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.423]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.428]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.429]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.429]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.429]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.429]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.430]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.430]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.430]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.453] Clerk not properly configured, allowing admin access for development
+[10:11:37.453] Clerk not properly configured, allowing admin access for development
+[10:11:37.478] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.478]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.478]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.478]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.479]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.479]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.479]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.479]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.479]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.479]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.479]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:37.479]   digest: '3547244411'
+[10:11:37.479] }
+[10:11:37.479] 
+[10:11:37.479] Error occurred prerendering page "/admin/blog". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:37.479] 
+[10:11:37.479] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.480]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.480]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.480]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.480]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.480]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.480]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.480]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.480]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.480]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.480]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.545] Clerk not properly configured, allowing admin access for development
+[10:11:37.546] Clerk not properly configured, allowing admin access for development
+[10:11:37.551] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.551]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.551]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.551]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.551]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.551]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.551]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.551]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.551]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.551]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.551]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:37.552]   digest: '3547244411'
+[10:11:37.552] }
+[10:11:37.552] 
+[10:11:37.552] Error occurred prerendering page "/admin/contacts". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:37.552] 
+[10:11:37.552] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.552]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.552]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.552]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.552]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.552]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.552]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.552]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.552]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.552]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.552]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.561]    Generating static pages (12/26) 
+[10:11:37.595] Clerk not properly configured, allowing admin access for development
+[10:11:37.595] Clerk not properly configured, allowing admin access for development
+[10:11:37.595] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.596]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.596]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.596]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.596]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.596]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.596]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.597]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.597]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.597]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.597]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:37.597]   digest: '3547244411'
+[10:11:37.597] }
+[10:11:37.597] 
+[10:11:37.597] Error occurred prerendering page "/admin/courses". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:37.598] 
+[10:11:37.598] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.598]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.598]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.598]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.598]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.598]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.598]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.599]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.599]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.599]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.599]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.851] Clerk not properly configured, allowing admin access for development
+[10:11:37.851] Clerk not properly configured, allowing admin access for development
+[10:11:37.851] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.852]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.852]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.852]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.856]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.856]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.857]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.857]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.857]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.857]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.857]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:37.857]   digest: '3547244411'
+[10:11:37.857] }
+[10:11:37.857] 
+[10:11:37.857] Error occurred prerendering page "/admin". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:37.857] 
+[10:11:37.857] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.857]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.857]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.857]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.857]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.858]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.858]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.858]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.858]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.858]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.858]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.892] Clerk not properly configured, allowing admin access for development
+[10:11:37.893] Clerk not properly configured, allowing admin access for development
+[10:11:37.893] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.893]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.893]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.893]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.893]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.893]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.893]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.893]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.893]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.893]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.893]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:37.893]   digest: '3547244411'
+[10:11:37.893] }
+[10:11:37.893] 
+[10:11:37.893] Error occurred prerendering page "/admin/products". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:37.893] 
+[10:11:37.893] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:37.893]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:37.893]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:37.894]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:37.894]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:37.894]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:37.894]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:37.894]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:37.894]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:37.894]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:37.894]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.007] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.008]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.008]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.009]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.009]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.009]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.009]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.009]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.009]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.009]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.009]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:38.009]   digest: '3547244411'
+[10:11:38.009] }
+[10:11:38.010] 
+[10:11:38.010] Error occurred prerendering page "/auth/signin". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:38.010] 
+[10:11:38.010] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.010]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.011]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.011]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.011]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.011]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.011]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.011]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.011]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.011]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.011]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.116] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.123]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.123]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.123]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.123]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.123]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.123]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.123]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.123]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.123]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.123]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:38.123]   digest: '3547244411'
+[10:11:38.123] }
+[10:11:38.123] 
+[10:11:38.123] Error occurred prerendering page "/auth/signup". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:38.123] 
+[10:11:38.123] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.123]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.123]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.123]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.123]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.124]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.124]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.124]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.124]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.124]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.124]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.221] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.221]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.221]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.221]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.221]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.221]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.221]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.221]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.221]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.221]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.221]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:38.221]   digest: '3547244411'
+[10:11:38.221] }
+[10:11:38.222] 
+[10:11:38.222] Error occurred prerendering page "/blog". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:38.222] 
+[10:11:38.222] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.222]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.222]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.222]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.222]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.222]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.222]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.222]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.222]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.222]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.223]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.261] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.262]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.262]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.262]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.262]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.262]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.262]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.262]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.262]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.262]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.262]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:38.262]   digest: '3547244411'
+[10:11:38.262] }
+[10:11:38.262] 
+[10:11:38.262] Error occurred prerendering page "/contact". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:38.262] 
+[10:11:38.263] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.263]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.263]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.263]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.263]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.263]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.263]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.263]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.263]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.263]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.263]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.270]    Generating static pages (19/26) 
+[10:11:38.301] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.302]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.302]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.302]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.302]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.302]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.302]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.302]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.303]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.303]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.303]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:38.303]   digest: '3547244411'
+[10:11:38.303] }
+[10:11:38.303] 
+[10:11:38.303] Error occurred prerendering page "/courses". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:38.303] 
+[10:11:38.303] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.303]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.303]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.303]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.303]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.303]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.303]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.303]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.303]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.303]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.303]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.331] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.331]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.331]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.331]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.331]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.331]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.331]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.331]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.331]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.331]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.331]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:38.331]   digest: '3547244411'
+[10:11:38.331] }
+[10:11:38.331] 
+[10:11:38.331] Error occurred prerendering page "/help". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:38.331] 
+[10:11:38.331] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.332]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.332]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.332]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.332]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.332]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.332]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.332]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.332]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.332]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.332]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.365] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.366]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.366]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.366]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.366]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.366]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.366]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.366]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.366]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.367]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.367]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:38.367]   digest: '3547244411'
+[10:11:38.367] }
+[10:11:38.367] 
+[10:11:38.367] Error occurred prerendering page "/". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:38.367] 
+[10:11:38.367] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.367]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.367]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.367]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.367]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.367]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.367]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.367]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.367]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.367]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.367]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.406] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.406]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.406]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.407]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.407]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.407]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.407]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.407]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.407]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.407]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.408]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:38.408]   digest: '3547244411'
+[10:11:38.410] }
+[10:11:38.425] 
+[10:11:38.426] Error occurred prerendering page "/privacy". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:38.426] 
+[10:11:38.426] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.426]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.426]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.426]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.426]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.426]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.426]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.426]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.426]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.426]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.426]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.469] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.469]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.469]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.469]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.469]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.469]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.470]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.470]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.470]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.470]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.470]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:38.470]   digest: '3547244411'
+[10:11:38.471] }
+[10:11:38.471] 
+[10:11:38.471] Error occurred prerendering page "/products". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:38.471] 
+[10:11:38.471] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.471]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.471]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.472]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.472]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.472]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.472]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.472]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.472]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.473]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.473]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.508] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.508]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.508]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.508]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.509]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.509]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.509]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.509]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.509]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.510]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.510]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:38.510]   digest: '3547244411'
+[10:11:38.510] }
+[10:11:38.510] 
+[10:11:38.510] Error occurred prerendering page "/terms". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:38.510] 
+[10:11:38.510] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.510]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.510]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.510]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.510]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.510]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.510]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.510]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.510]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.510]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.510]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.546] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.546]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.546]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.546]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.546]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.546]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.546]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.546]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.546]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.546]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.546]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+[10:11:38.546]   digest: '3547244411'
+[10:11:38.546] }
+[10:11:38.546] 
+[10:11:38.547] Error occurred prerendering page "/test". Read more: https://nextjs.org/docs/messages/prerender-error
+[10:11:38.547] 
+[10:11:38.547] TypeError: Cannot read properties of null (reading 'useContext')
+[10:11:38.547]     at exports.useContext (/vercel/path0/node_modules/react/cjs/react.production.min.js:24:495)
+[10:11:38.547]     at useRouter (/vercel/path0/node_modules/next/dist/client/compat/router.js:14:34)
+[10:11:38.547]     at ClerkProvider (/vercel/path0/node_modules/@clerk/nextjs/dist/cjs/client-boundary/ClerkProvider.js:40:46)
+[10:11:38.547]     at nj (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+[10:11:38.547]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+[10:11:38.547]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.547]     at nI (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+[10:11:38.547]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+[10:11:38.547]     at nM (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+[10:11:38.547]     at nN (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+[10:11:38.572]  ✓ Generating static pages (26/26)
+[10:11:38.581] 
+[10:11:38.581] > Export encountered errors on following paths:
+[10:11:38.581] 	/_not-found/page: /_not-found
+[10:11:38.582] 	/about/page: /about
+[10:11:38.582] 	/admin/blog/page: /admin/blog
+[10:11:38.582] 	/admin/contacts/page: /admin/contacts
+[10:11:38.582] 	/admin/courses/page: /admin/courses
+[10:11:38.582] 	/admin/page: /admin
+[10:11:38.582] 	/admin/products/page: /admin/products
+[10:11:38.582] 	/auth/signin/page: /auth/signin
+[10:11:38.582] 	/auth/signup/page: /auth/signup
+[10:11:38.582] 	/blog/page: /blog
+[10:11:38.582] 	/contact/page: /contact
+[10:11:38.582] 	/courses/page: /courses
+[10:11:38.582] 	/help/page: /help
+[10:11:38.582] 	/page: /
+[10:11:38.583] 	/privacy/page: /privacy
+[10:11:38.583] 	/products/page: /products
+[10:11:38.583] 	/terms/page: /terms
+[10:11:38.583] 	/test/page: /test
+[10:11:38.611] Error: Command "npx prisma generate && npm run build" exited with 1
