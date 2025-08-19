@@ -77,19 +77,19 @@ export default function RootLayout({
           <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
           <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
           <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
-          
+
           {/* Performance and SEO */}
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
           <meta name="theme-color" content="#667eea" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
           <meta name="apple-mobile-web-app-title" content="1% Better" />
-          
+
           {/* Preconnect to external domains */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://images.unsplash.com" />
-          
+
           {/* Favicon */}
           <link rel="icon" href="/favicon.ico" sizes="any" />
           <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -112,4 +112,4 @@ export default function RootLayout({
       </html>
     </ClerkProviderWrapper>
   )
-} 
+}

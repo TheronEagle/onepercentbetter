@@ -1,10 +1,12 @@
 import { redirect } from "next/navigation";
+import { useAuth } from "@clerk/nextjs"; // Assuming useAuth is available and needed for the client-side check
+import AdminNavigation from "@/components/admin/AdminNavigation"; // Assuming this path is correct
 
 // Check if Clerk keys are properly configured
 const isClerkConfigured = () => {
-  return process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && 
+  return process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
          process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY !== 'pk_test_placeholder' &&
-         process.env.CLERK_SECRET_KEY && 
+         process.env.CLERK_SECRET_KEY &&
          process.env.CLERK_SECRET_KEY !== 'sk_test_placeholder'
 }
 
@@ -36,7 +38,7 @@ export default async function AdminLayout({
     // For now, we'll allow any authenticated user to access admin
     // In production, you might want to check for specific roles or email domains
     const isAdmin = user?.emailAddresses?.some(
-      (email) => email.emailAddress === "admin@1percent-better.com" || 
+      (email) => email.emailAddress === "admin@1percent-better.com" ||
       user.emailAddresses[0]?.emailAddress?.includes("admin")
     ) || true; // Temporarily allow all authenticated users
 
@@ -59,7 +61,3 @@ export default async function AdminLayout({
     );
   }
 }
-
-
-
-

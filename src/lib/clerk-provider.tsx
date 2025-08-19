@@ -42,4 +42,3 @@ export function ClerkProviderWrapper({ children }: ClerkProviderWrapperProps) {
     </ClerkProvider>
   )
 }
-

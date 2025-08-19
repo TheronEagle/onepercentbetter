@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { 
-  File, 
-  Plus, 
-  Edit, 
-  Trash2, 
+import {
+  File,
+  Plus,
+  Edit,
+  Trash2,
   Search,
   Filter,
   Eye,
@@ -147,7 +147,7 @@ export default function ProductsPage() {
     const matchesStatus = selectedStatus === 'all' || product.status === selectedStatus
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory
     const matchesType = selectedType === 'all' || product.type === selectedType
-    
+
     return matchesSearch && matchesStatus && matchesCategory && matchesType
   })
 
@@ -156,13 +156,13 @@ export default function ProductsPage() {
   }
 
   const handleStatusChange = (id: number, newStatus: string) => {
-    setProducts(products.map(product => 
+    setProducts(products.map(product =>
       product.id === id ? { ...product, status: newStatus } : product
     ))
   }
 
   const handleFeaturedToggle = (id: number) => {
-    setProducts(products.map(product => 
+    setProducts(products.map(product =>
       product.id === id ? { ...product, featured: !product.featured } : product
     ))
   }
@@ -204,13 +204,13 @@ export default function ProductsPage() {
               </p>
             </div>
             <div className="flex items-center space-x-4">
-              <Link 
-                href="/admin" 
+              <Link
+                href="/admin"
                 className="text-white/80 hover:text-white transition-colors font-medium btn-haptic"
               >
                 Back to Dashboard
               </Link>
-              <Button 
+              <Button
                 onClick={() => {
                   setSelectedProduct(null)
                   setShowAddForm(true)
@@ -241,7 +241,7 @@ export default function ProductsPage() {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-white/10 backdrop-blur-xl border-white/20">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
@@ -255,7 +255,7 @@ export default function ProductsPage() {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-white/10 backdrop-blur-xl border-white/20">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
@@ -284,7 +284,7 @@ export default function ProductsPage() {
                   className="pl-10 bg-white/10 border-white/20 text-white placeholder-white/50 focus:border-orange-500"
                 />
               </div>
-              
+
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -296,7 +296,7 @@ export default function ProductsPage() {
                   </option>
                 ))}
               </select>
-              
+
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
@@ -308,7 +308,7 @@ export default function ProductsPage() {
                   </option>
                 ))}
               </select>
-              
+
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
@@ -320,8 +320,8 @@ export default function ProductsPage() {
                   </option>
                 ))}
               </select>
-              
-              <Button 
+
+              <Button
                 onClick={() => {
                   setSearchTerm('')
                   setSelectedCategory('all')
@@ -343,8 +343,8 @@ export default function ProductsPage() {
           {filteredProducts.map((product) => (
             <Card key={product.id} className="bg-white/10 backdrop-blur-xl border-white/20 hover:bg-white/20 transition-all duration-300 group">
               <div className="relative">
-                <img 
-                  src={product.thumbnail} 
+                <img
+                  src={product.thumbnail || ''}
                   alt={product.title}
                   className="w-full h-48 object-cover rounded-t-lg group-hover:scale-105 transition-transform duration-300"
                 />
@@ -355,8 +355,8 @@ export default function ProductsPage() {
                     </span>
                   )}
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    product.status === 'active' ? 'bg-green-500/20 text-green-400' : 
-                    product.status === 'draft' ? 'bg-yellow-500/20 text-yellow-400' : 
+                    product.status === 'active' ? 'bg-green-500/20 text-green-400' :
+                    product.status === 'draft' ? 'bg-yellow-500/20 text-yellow-400' :
                     'bg-gray-500/20 text-gray-400'
                   }`}>
                     {product.status}
@@ -368,17 +368,17 @@ export default function ProductsPage() {
                   </span>
                 </div>
               </div>
-              
+
               <CardContent className="p-6">
                 <div className="mb-4">
                   <div className="flex items-center space-x-2 mb-2">
                     {getTypeIcon(product.type)}
                     <span className="text-xs text-white/50 uppercase">{product.type}</span>
                   </div>
-                  
+
                   <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">{product.title}</h3>
                   <p className="text-white/70 text-sm line-clamp-2 mb-3">{product.description}</p>
-                  
+
                   <div className="flex items-center justify-between text-sm text-white/60 mb-3">
                     <span className="flex items-center">
                       <ShoppingCart className="h-4 w-4 mr-1" />
@@ -389,7 +389,7 @@ export default function ProductsPage() {
                       {product.rating}
                     </span>
                   </div>
-                  
+
                   <div className="flex items-center justify-between text-sm text-white/60 mb-3">
                     <span className="flex items-center">
                       <Download className="h-4 w-4 mr-1" />
@@ -400,7 +400,7 @@ export default function ProductsPage() {
                       ${product.revenue.toFixed(2)}
                     </span>
                   </div>
-                  
+
                   <div className="flex items-center justify-between text-sm text-white/60 mb-4">
                     <span className="flex items-center">
                       <Tag className="h-4 w-4 mr-1" />
@@ -410,7 +410,7 @@ export default function ProductsPage() {
                       {product.fileSize}
                     </span>
                   </div>
-                  
+
                   <div className="flex flex-wrap gap-1 mb-4">
                     {product.tags.map((tag, index) => (
                       <span key={index} className="px-2 py-1 bg-white/10 rounded text-xs text-white/70">
@@ -419,16 +419,16 @@ export default function ProductsPage() {
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="flex items-center justify-between">
                   <div className="flex space-x-2">
                     <Button size="sm" variant="outline" className="btn-haptic border-white/20 text-white hover:bg-white/10">
                       <Eye className="h-3 w-3 mr-1" />
                       View
                     </Button>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
+                    <Button
+                      size="sm"
+                      variant="outline"
                       className="btn-haptic border-white/20 text-white hover:bg-white/10"
                       onClick={() => handleEditProduct(product)}
                     >
@@ -436,21 +436,21 @@ export default function ProductsPage() {
                       Edit
                     </Button>
                   </div>
-                  
+
                   <div className="flex items-center space-x-2">
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
+                    <Button
+                      size="sm"
+                      variant="outline"
                       className={`btn-haptic ${
-                        product.featured 
-                          ? 'border-yellow-500/20 text-yellow-400 hover:bg-yellow-500/10' 
+                        product.featured
+                          ? 'border-yellow-500/20 text-yellow-400 hover:bg-yellow-500/10'
                           : 'border-white/20 text-white hover:bg-white/10'
                       }`}
                       onClick={() => handleFeaturedToggle(product.id)}
                     >
                       <Star className="h-3 w-3" />
                     </Button>
-                    
+
                     <select
                       value={product.status}
                       onChange={(e) => handleStatusChange(product.id, e.target.value)}
@@ -460,10 +460,10 @@ export default function ProductsPage() {
                       <option value="active" className="bg-slate-800">Active</option>
                       <option value="archived" className="bg-slate-800">Archived</option>
                     </select>
-                    
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
+
+                    <Button
+                      size="sm"
+                      variant="outline"
                       className="btn-haptic border-red-500/20 text-red-400 hover:bg-red-500/10"
                       onClick={() => handleDeleteProduct(product.id)}
                     >
@@ -482,7 +482,7 @@ export default function ProductsPage() {
               <File className="h-12 w-12 text-white/50 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-white mb-2">No products found</h3>
               <p className="text-white/70 mb-4">Try adjusting your search or filters</p>
-              <Button 
+              <Button
                 onClick={() => setShowAddForm(true)}
                 className="btn-futuristic btn-haptic bg-gradient-to-r from-green-500 to-green-600"
               >
@@ -502,7 +502,7 @@ export default function ProductsPage() {
               <h2 className="text-2xl font-bold text-white">
                 {selectedProduct ? 'Edit Product' : 'Add New Product'}
               </h2>
-              <Button 
+              <Button
                 onClick={() => setShowAddForm(false)}
                 variant="outline"
                 className="btn-haptic border-white/20 text-white hover:bg-white/10"
@@ -510,12 +510,12 @@ export default function ProductsPage() {
                 <X className="h-4 w-4" />
               </Button>
             </div>
-            
+
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-white font-medium mb-2">Product Title</label>
-                  <Input 
+                  <Input
                     placeholder="Enter product title"
                     defaultValue={selectedProduct?.title || ''}
                     className="bg-white/10 border-white/20 text-white placeholder-white/50 focus:border-orange-500"
@@ -532,21 +532,21 @@ export default function ProductsPage() {
                   </select>
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-white font-medium mb-2">Description</label>
-                <Textarea 
+                <Textarea
                   placeholder="Enter product description"
                   defaultValue={selectedProduct?.description || ''}
                   rows={4}
                   className="bg-white/10 border-white/20 text-white placeholder-white/50 focus:border-orange-500 resize-none"
                 />
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-white font-medium mb-2">Price ($)</label>
-                  <Input 
+                  <Input
                     type="number"
                     step="0.01"
                     placeholder="29.99"
@@ -556,7 +556,7 @@ export default function ProductsPage() {
                 </div>
                 <div>
                   <label className="block text-white font-medium mb-2">Original Price ($)</label>
-                  <Input 
+                  <Input
                     type="number"
                     step="0.01"
                     placeholder="49.99"
@@ -576,16 +576,16 @@ export default function ProductsPage() {
                   </select>
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-white font-medium mb-2">Tags</label>
-                <Input 
+                <Input
                   placeholder="tag1, tag2, tag3"
                   defaultValue={selectedProduct?.tags?.join(', ') || ''}
                   className="bg-white/10 border-white/20 text-white placeholder-white/50 focus:border-orange-500"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-white font-medium mb-2">Product File</label>
                 <div className="border-2 border-dashed border-white/20 rounded-lg p-6 text-center">
@@ -594,7 +594,7 @@ export default function ProductsPage() {
                   <p className="text-white/50 text-sm">PDF, ZIP, MP4, MP3 up to 100MB</p>
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-white font-medium mb-2">Thumbnail Image</label>
                 <div className="border-2 border-dashed border-white/20 rounded-lg p-6 text-center">
@@ -603,7 +603,7 @@ export default function ProductsPage() {
                   <p className="text-white/50 text-sm">PNG, JPG up to 10MB</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <label className="flex items-center space-x-2 text-white">
@@ -611,9 +611,9 @@ export default function ProductsPage() {
                     <span>Featured Product</span>
                   </label>
                 </div>
-                
+
                 <div className="flex items-center space-x-4">
-                  <Button 
+                  <Button
                     type="button"
                     onClick={() => setShowAddForm(false)}
                     variant="outline"
@@ -621,7 +621,7 @@ export default function ProductsPage() {
                   >
                     Cancel
                   </Button>
-                  <Button 
+                  <Button
                     type="submit"
                     className="btn-futuristic btn-haptic bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700"
                   >
@@ -637,5 +637,3 @@ export default function ProductsPage() {
     </div>
   )
 }
-
-
