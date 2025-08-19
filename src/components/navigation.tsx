@@ -1,18 +1,36 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { BookOpen, User, Menu, X, Settings, LogOut, Crown, ChevronDown, Sparkles, Zap } from 'lucide-react'
-import { useState, useEffect } from 'react'
-import { useUser, useClerk } from '@clerk/nextjs'
+
+// Safe hook wrappers to prevent crashes
+function useSafeUser() {
+  try {
+    const { useUser } = require('@clerk/nextjs')
+    return useUser()
+  } catch {
+    return { user: null, isLoaded: true }
+  }
+}
+
+function useSafeClerk() {
+  try {
+    const { useClerk } = require('@clerk/nextjs')
+    return useClerk()
+  } catch {
+    return { signOut: () => {}, openSignIn: () => {} }
+  }
+}
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const { user, isLoaded } = useUser()
-  const { signOut } = useClerk()
+  const { user, isLoaded } = useSafeUser()
+  const { signOut } = useSafeClerk()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +59,7 @@ export default function Navigation() {
   const menuItemsTransform = `translateZ(${Math.min(scrollY * 0.05, 10)}px)`
 
   return (
-    <nav 
+    <nav
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out nav-glow"
       style={{
         transform: navTransform,
@@ -51,14 +69,14 @@ export default function Navigation() {
       }}
     >
       {/* 3D Background Layer */}
-      <div 
+      <div
         className="absolute inset-0 bg-gradient-to-r from-orange-600/20 via-orange-500/20 to-orange-600/20 backdrop-blur-md"
         style={{
           transform: `translateZ(-10px) scale(${1 + scrollY * 0.0001})`,
           filter: `blur(${Math.min(scrollY * 0.01, 2)}px)`
         }}
       />
-      
+
       {/* Animated Background Particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(6)].map((_, i) => (
@@ -79,24 +97,24 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-20">
           {/* Logo with 3D effect */}
           <Link href="/" className="flex items-center space-x-3 group relative interactive">
-            <div 
+            <div
               className="relative transition-transform duration-300 group-hover:scale-110"
               style={{ transform: `scale(${logoScale})` }}
             >
-              <div 
+              <div
                 className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 rounded-lg blur-sm group-hover:blur-md transition-all duration-300"
                 style={{
                   transform: `translateZ(${Math.min(scrollY * 0.05, 15)}px) rotateY(${Math.sin(scrollY * 0.01) * 5}deg)`
                 }}
               />
-              <BookOpen 
+              <BookOpen
                 className="h-10 w-10 text-white relative z-10 p-2 bg-gradient-to-r from-orange-600 to-orange-500 rounded-lg transition-all duration-300"
                 style={{
                   transform: `translateZ(${Math.min(scrollY * 0.08, 20)}px) rotateX(${Math.sin(scrollY * 0.008) * 3}deg)`
                 }}
               />
             </div>
-            <div 
+            <div
               className="flex flex-col transition-transform duration-300"
               style={{ transform: `translateZ(${Math.min(scrollY * 0.03, 8)}px)` }}
             >
@@ -108,7 +126,7 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Menu with 3D effect */}
-          <div 
+          <div
             className="hidden lg:flex items-center space-x-8"
             style={{ transform: menuItemsTransform }}
           >
@@ -123,7 +141,7 @@ export default function Navigation() {
                 }}
               >
                 {item.label}
-                <span 
+                <span
                   className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-300 transition-all duration-300 group-hover:w-full"
                   style={{
                     transform: `translateZ(${Math.min(scrollY * 0.01, 3)}px)`
@@ -131,10 +149,10 @@ export default function Navigation() {
                 />
               </Link>
             ))}
-            
+
             {/* Resources Dropdown with 3D effect */}
             <div className="relative group">
-              <button 
+              <button
                 className="flex items-center space-x-1 text-white hover:text-orange-200 transition-all duration-300 font-medium interactive btn-haptic"
                 style={{
                   transform: `translateZ(${Math.min(scrollY * 0.02, 8)}px) rotateY(${Math.sin(scrollY * 0.005) * 2}deg)`
@@ -143,7 +161,7 @@ export default function Navigation() {
                 <span>Resources</span>
                 <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
               </button>
-              <div 
+              <div
                 className="absolute top-full left-0 mt-2 w-64 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
                 style={{
                   transform: `translateZ(${Math.min(scrollY * 0.05, 15)}px) rotateX(${Math.sin(scrollY * 0.003) * 1}deg)`
@@ -172,7 +190,7 @@ export default function Navigation() {
           </div>
 
           {/* Desktop Actions with 3D effect */}
-          <div 
+          <div
             className="hidden lg:flex items-center space-x-4"
             style={{ transform: `translateZ(${Math.min(scrollY * 0.04, 12)}px)` }}
           >
@@ -194,7 +212,7 @@ export default function Navigation() {
                 </Button>
 
                 {isUserMenuOpen && (
-                  <div 
+                  <div
                     className="absolute right-0 mt-3 w-64 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 py-2 animate-in slide-in-from-top-2 duration-200"
                     style={{
                       transform: `translateZ(${Math.min(scrollY * 0.08, 25)}px)`
@@ -234,9 +252,9 @@ export default function Navigation() {
               </div>
             ) : (
               <>
-                <Button 
-                  variant="ghost" 
-                  asChild 
+                <Button
+                  variant="ghost"
+                  asChild
                   className="font-medium text-white hover:text-orange-200 hover:bg-white/10 transition-all duration-200 btn-haptic"
                   style={{
                     transform: `translateZ(${Math.min(scrollY * 0.05, 15)}px)`
@@ -247,8 +265,8 @@ export default function Navigation() {
                     Sign In
                   </Link>
                 </Button>
-                <Button 
-                  asChild 
+                <Button
+                  asChild
                   className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white font-medium px-6 py-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 btn-futuristic btn-haptic"
                   style={{
                     transform: `translateZ(${Math.min(scrollY * 0.07, 20)}px) rotateY(${Math.sin(scrollY * 0.006) * 2}deg)`
@@ -281,7 +299,7 @@ export default function Navigation() {
 
         {/* Mobile Menu with 3D effect */}
         {isMenuOpen && (
-          <div 
+          <div
             className="lg:hidden py-6 border-t border-white/20 bg-white/10 backdrop-blur-xl"
             style={{
               transform: `translateZ(${Math.min(scrollY * 0.02, 8)}px)`
@@ -301,7 +319,7 @@ export default function Navigation() {
                   {item.label}
                 </Link>
               ))}
-              
+
               {/* Mobile Resources */}
               <div className="px-4 py-2">
                 <div className="text-sm font-medium text-white/70 mb-2">Resources</div>
@@ -323,7 +341,7 @@ export default function Navigation() {
                   </Link>
                 </div>
               </div>
-              
+
               <div className="pt-4 border-t border-white/20">
                 {isLoaded && user ? (
                   <>
@@ -348,8 +366,8 @@ export default function Navigation() {
                         Settings
                       </Link>
                     </Button>
-                    <Button 
-                      variant="ghost" 
+                    <Button
+                      variant="ghost"
                       className="w-full justify-start px-4 text-red-300 hover:text-red-200 hover:bg-red-500/10 btn-haptic"
                       onClick={() => {
                         handleSignOut()
@@ -383,4 +401,4 @@ export default function Navigation() {
       </div>
     </nav>
   )
-} 
+}
