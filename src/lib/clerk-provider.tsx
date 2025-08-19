@@ -8,6 +8,7 @@ interface ClerkProviderWrapperProps {
 }
 
 export function ClerkProviderWrapper({ children }: ClerkProviderWrapperProps) {
-  // Simplified wrapper without any Clerk dependencies
+  // Simple wrapper that just passes through children
+  // This removes all Clerk dependencies to prevent errors
   return <>{children}</>
 }

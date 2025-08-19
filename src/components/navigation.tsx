@@ -3,17 +3,23 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { BookOpen, User, Menu, X, Settings, LogOut, Crown, ChevronDown, Sparkles, Zap } from 'lucide-react'
+
+interface User {
+  email: string
+  firstName: string
+  lastName: string
+}
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
-
-  // Mock user state for development
-  const user = null // Simplified for deployment
-  const isLoaded = true
+  const [user, setUser] = useState<User | null>(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +27,20 @@ export default function Navigation() {
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    // Check for user in localStorage
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser))
+      } catch (error) {
+        console.error('Error parsing user data:', error)
+        localStorage.removeItem('user')
+      }
+    }
+    setIsLoaded(true)
   }, [])
 
   const navItems = [
@@ -32,8 +52,10 @@ export default function Navigation() {
   ]
 
   const handleSignOut = () => {
-    // Placeholder for sign out functionality
-    console.log('Sign out clicked')
+    localStorage.removeItem('user')
+    setUser(null)
+    setIsUserMenuOpen(false)
+    router.push('/')
   }
 
   return (
@@ -169,7 +191,7 @@ export default function Navigation() {
                     </div>
                     <div>
                       <div className="font-medium text-gray-900">{user.firstName} {user.lastName}</div>
-                      <div className="text-sm text-gray-500">{user.primaryEmailAddress?.emailAddress}</div>
+                      <div className="text-sm text-gray-500">{user.email}</div>
                     </div>
                   </div>
                   <div className="space-y-2">
