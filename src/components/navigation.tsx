@@ -6,14 +6,14 @@ import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Menu, X, BookOpen } from 'lucide-react'
-import { useAnimationContext } from '@/lib/animation-context'
+import { useAnimation } from '@/lib/animation-context'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
-  const { setCursorVariant } = useAnimationContext()
+  const { enableCursor, disableCursor } = useAnimation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,15 +25,11 @@ export default function Navigation() {
   }, [])
 
   const handleCursorEnter = () => {
-    if (setCursorVariant) {
-      setCursorVariant('hover')
-    }
+    enableCursor()
   }
 
   const handleCursorLeave = () => {
-    if (setCursorVariant) {
-      setCursorVariant('default')
-    }
+    disableCursor()
   }
 
   const navItems = [
