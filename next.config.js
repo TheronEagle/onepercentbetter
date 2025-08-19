@@ -4,7 +4,13 @@ const nextConfig = {
     domains: ['images.unsplash.com', 'via.placeholder.com'],
   },
   experimental: {
-    serverComponentsExternalPackages: ['@clerk/nextjs'],
+    esmExternals: 'loose',
+  },
+  webpack: (config) => {
+    config.externals.push({
+      '@clerk/nextjs': '@clerk/nextjs',
+    })
+    return config
   },
 }
 
