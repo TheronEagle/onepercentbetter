@@ -13,7 +13,7 @@ export function ClerkProviderWrapper({ children }: ClerkProviderWrapperProps) {
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
   // If Clerk is not configured or using placeholder keys, render without Clerk
-  if (!publishableKey || publishableKey === 'pk_test_placeholder') {
+  if (!publishableKey || publishableKey === 'pk_test_placeholder' || publishableKey.length < 20) {
     return <>{children}</>
   }
 
