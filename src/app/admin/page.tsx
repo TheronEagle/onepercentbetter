@@ -6,6 +6,7 @@ import { useUser, useClerk } from '@clerk/nextjs'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { LogOut, Users, BookOpen, MessageSquare, ShoppingCart, TrendingUp, DollarSign, Calendar, Eye } from 'lucide-react'
+import DebugUser from './debug-user'
 
 // Check if Clerk is configured
 const isClerkConfigured = () => {
@@ -27,9 +28,19 @@ export default function AdminPage() {
         if (isLoaded) {
           if (clerkUser) {
             setUser(clerkUser)
-            // Check if user is admin (you can customize this logic)
-            const adminEmails = ['admin@example.com', 'owner@yourdomain.com', 'admin@1percentbetter.com'] // Added the demo admin email
-            setIsAdmin(adminEmails.includes(clerkUser.emailAddresses[0]?.emailAddress || ''))
+            // Check if user is admin - replace with your actual Clerk user ID
+            const adminUserIds = [
+              'user_2r8qXXXXXXXXXXXXXXXXXX', // Replace this with your actual Clerk user ID
+            ]
+            const adminEmails = [
+              'your-admin-email@example.com', // Replace with your actual email
+            ]
+            
+            // Check by user ID (more secure) or email as fallback
+            const isAdminById = adminUserIds.includes(clerkUser.id)
+            const isAdminByEmail = adminEmails.includes(clerkUser.emailAddresses[0]?.emailAddress || '')
+            
+            setIsAdmin(isAdminById || isAdminByEmail)
             setAuthChecked(true)
           } else {
             router.push('/auth/signin?redirect=/admin')
@@ -135,6 +146,8 @@ export default function AdminPage() {
 
       {/* Dashboard Content */}
       <div className="container mx-auto px-4 py-8">
+        {/* Debug User Info - Remove in production */}
+        <DebugUser />
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">

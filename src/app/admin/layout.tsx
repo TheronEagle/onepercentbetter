@@ -1,3 +1,4 @@
+import { auth } from '@clerk/nextjs'
 import { redirect } from "next/navigation"
 
 // Check if Clerk keys are properly configured
@@ -22,11 +23,23 @@ export default async function AdminLayout({
     );
   }
 
-  // Only check authentication if Clerk is configured
+  // Check authentication if Clerk is configured
   try {
-    // For now, we'll skip authentication to allow deployment
-    // This can be re-enabled once Clerk is properly configured
-    console.log("Admin access - Clerk authentication temporarily disabled for deployment");
+    const { userId } = auth()
+    
+    if (!userId) {
+      redirect('/auth/signin?redirect=/admin')
+    }
+
+    // Define admin user IDs - replace with your actual Clerk user ID
+    const adminUserIds = [
+      'user_2r8qXXXXXXXXXXXXXXXXXX', // Replace this with your actual Clerk user ID
+    ]
+
+    // Check if current user is admin
+    if (!adminUserIds.includes(userId)) {
+      redirect('/')
+    }
 
     return (
       <div className="min-h-screen bg-background">
@@ -34,12 +47,8 @@ export default async function AdminLayout({
       </div>
     );
   } catch (error) {
-    // If there's an error with Clerk, allow access for development
-    console.warn("Clerk not properly configured, allowing admin access for development");
-    return (
-      <div className="min-h-screen bg-background">
-        {children}
-      </div>
-    );
+    // If there's an error with Clerk, redirect to sign in
+    console.warn("Clerk authentication error:", error);
+    redirect('/auth/signin?redirect=/admin')
   }
 }
