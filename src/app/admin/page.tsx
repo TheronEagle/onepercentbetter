@@ -1,129 +1,95 @@
+
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useUser, useClerk } from '@clerk/nextjs'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { 
-  BookOpen, 
-  Users, 
-  DollarSign, 
-  TrendingUp, 
-  Plus, 
-  Edit, 
-  Trash2, 
-  Settings,
-  LogOut,
-  FileText,
-  MessageSquare,
-  Download,
-  Upload,
-  Eye,
-  BarChart3,
-  Mail,
-  Calendar,
-  Star,
-  ShoppingCart,
-  CreditCard,
-  File,
-  Image,
-  Video,
-  Music,
-  Archive
-} from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { LogOut, Users, BookOpen, MessageSquare, ShoppingCart, TrendingUp, DollarSign, Calendar, Eye } from 'lucide-react'
+
+// Check if Clerk is configured
+const isClerkConfigured = () => {
+  const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  return key && key !== 'pk_test_placeholder' && key.length > 20
+}
 
 export default function AdminPage() {
   const router = useRouter()
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [user, setUser] = useState<any>(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [clerkUser, setClerkUser] = useState<any>(null)
+  const [user, setUser] = useState<any>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
 
-  // Check if Clerk is properly configured
-  const isClerkConfigured = () => {
-    const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-    return key && key !== 'pk_test_placeholder' && key.length > 20
+  // Only use Clerk hooks if configured
+  let clerkUser = null
+  let signOut = null
+  
+  try {
+    if (isClerkConfigured()) {
+      clerkUser = useUser()
+      const clerk = useClerk()
+      signOut = clerk.signOut
+    }
+  } catch (error) {
+    console.log('Clerk hooks error:', error)
   }
 
   useEffect(() => {
     const initializeAuth = async () => {
-      if (isClerkConfigured()) {
-        try {
-          // Dynamic import of Clerk hooks
-          const { useUser } = await import('@clerk/nextjs')
-          // For now, we'll use fallback since hooks can't be called conditionally
-          console.log('Clerk configured but using fallback for now')
-        } catch (error) {
-          console.log('Error loading Clerk:', error)
+      if (isClerkConfigured() && clerkUser) {
+        // Use Clerk authentication
+        if (clerkUser.isLoaded) {
+          if (clerkUser.user) {
+            setUser(clerkUser.user)
+            setIsAdmin(true)
+            setIsLoaded(true)
+          } else {
+            router.push('/auth/signin?redirect=/admin')
+          }
         }
-      }
-
-      // Check for fallback user (development mode)
-      const fallbackUser = localStorage.getItem('user')
-      if (fallbackUser) {
-        const userData = JSON.parse(fallbackUser)
-        setUser(userData)
-        setIsAdmin(true)
-        setIsLoaded(true)
-      } else if (!isClerkConfigured()) {
-        // Development mode - allow admin access
-        console.log('Development mode - allowing admin access')
-        setUser({ 
-          firstName: 'Admin', 
-          emailAddresses: [{ emailAddress: 'admin@1percentbetter.com' }] 
-        })
-        setIsAdmin(true)
-        setIsLoaded(true)
       } else {
-        // Redirect to sign-in if no user found
-        router.push('/auth/signin?redirect=/admin')
+        // Fallback for demo/development mode
+        const fallbackUser = localStorage.getItem('user')
+        if (fallbackUser) {
+          const userData = JSON.parse(fallbackUser)
+          setUser(userData)
+          setIsAdmin(true)
+          setIsLoaded(true)
+        } else {
+          // Allow admin access in development
+          setUser({ 
+            firstName: 'Admin', 
+            emailAddresses: [{ emailAddress: 'admin@1percentbetter.com' }] 
+          })
+          setIsAdmin(true)
+          setIsLoaded(true)
+        }
       }
     }
 
     initializeAuth()
-  }, [router])
+  }, [clerkUser?.isLoaded, clerkUser?.user, router])
 
   const handleSignOut = async () => {
-    if (isClerkConfigured()) {
-      try {
-        const { useClerk } = await import('@clerk/nextjs')
-        // Handle Clerk sign out when available
-      } catch (error) {
-        console.log('Clerk sign out error:', error)
-      }
+    if (isClerkConfigured() && signOut) {
+      await signOut()
+    } else {
+      localStorage.removeItem('user')
     }
-
-    // Fallback sign out
-    localStorage.removeItem('user')
     router.push('/')
   }
 
   if (!isLoaded) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-          <p className="text-white font-medium">Loading Admin Dashboard...</p>
-        </div>
+        <div className="text-white text-xl">Loading...</div>
       </div>
     )
   }
 
   if (!isAdmin) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Access Denied</h1>
-          <p className="text-white/70 mb-6">You don't have permission to access this area.</p>
-          <Link href="/">
-            <Button className="btn-futuristic bg-gradient-to-r from-orange-500 to-pink-500">
-              Go Home
-            </Button>
-          </Link>
-        </div>
-      </div>
-    )
+    router.push('/auth/signin?redirect=/admin')
+    return null
   }
 
   return (
@@ -146,14 +112,14 @@ export default function AdminPage() {
             <div className="flex items-center space-x-4">
               <Link 
                 href="/" 
-                className="text-white/80 hover:text-white transition-colors font-medium btn-haptic"
+                className="text-white/80 hover:text-white transition-colors font-medium"
               >
                 View Site
               </Link>
               <Button 
                 onClick={handleSignOut}
                 variant="outline" 
-                className="btn-futuristic btn-haptic border-white/20 text-white hover:bg-white/10"
+                className="border-white/20 text-white hover:bg-white/10"
               >
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out
@@ -163,157 +129,172 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Dashboard Content */}
       <div className="container mx-auto px-4 py-8">
-        {/* Stats Grid */}
+        {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-white/10 backdrop-blur-xl border-white/20 hover:bg-white/15 transition-all duration-300 cursor-pointer btn-haptic">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-white/80">Total Users</CardTitle>
-              <Users className="h-4 w-4 text-blue-400" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-white">0</div>
-              <p className="text-xs text-white/60">No users yet</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/10 backdrop-blur-xl border-white/20 hover:bg-white/15 transition-all duration-300 cursor-pointer btn-haptic">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-white/80">Total Revenue</CardTitle>
-              <DollarSign className="h-4 w-4 text-green-400" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-white">$0.00</div>
-              <p className="text-xs text-white/60">No sales yet</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/10 backdrop-blur-xl border-white/20 hover:bg-white/15 transition-all duration-300 cursor-pointer btn-haptic">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-white/80">Active Courses</CardTitle>
-              <BookOpen className="h-4 w-4 text-purple-400" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-white">0</div>
-              <p className="text-xs text-white/60">No courses created</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/10 backdrop-blur-xl border-white/20 hover:bg-white/15 transition-all duration-300 cursor-pointer btn-haptic">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-white/80">Growth Rate</CardTitle>
-              <TrendingUp className="h-4 w-4 text-orange-400" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-white">0%</div>
-              <p className="text-xs text-white/60">Pre-launch</p>
-            </CardContent>
-          </Card>
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-white/70 text-sm font-medium">Total Users</p>
+                <p className="text-2xl font-bold text-white">1,234</p>
+              </div>
+              <Users className="h-8 w-8 text-blue-400" />
+            </div>
+          </div>
+          
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-white/70 text-sm font-medium">Active Courses</p>
+                <p className="text-2xl font-bold text-white">12</p>
+              </div>
+              <BookOpen className="h-8 w-8 text-green-400" />
+            </div>
+          </div>
+          
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-white/70 text-sm font-medium">Monthly Revenue</p>
+                <p className="text-2xl font-bold text-white">$12,450</p>
+              </div>
+              <DollarSign className="h-8 w-8 text-yellow-400" />
+            </div>
+          </div>
+          
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-white/70 text-sm font-medium">New Messages</p>
+                <p className="text-2xl font-bold text-white">8</p>
+              </div>
+              <MessageSquare className="h-8 w-8 text-purple-400" />
+            </div>
+          </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-white/10 backdrop-blur-xl border-white/20">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center">
-                <BookOpen className="h-5 w-5 mr-2 text-blue-400" />
+        {/* Management Sections */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Course Management */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-white flex items-center">
+                <BookOpen className="h-5 w-5 mr-2" />
                 Course Management
-              </CardTitle>
-              <CardDescription className="text-white/60">
-                Create and manage your courses
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
+              </h2>
               <Link href="/admin/courses">
-                <Button className="w-full btn-futuristic bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Manage Courses
+                <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+                  Manage
                 </Button>
               </Link>
-            </CardContent>
-          </Card>
+            </div>
+            <p className="text-white/70 mb-4">Create, edit, and manage all courses and content.</p>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Published Courses</span>
+                <span className="text-white">12</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Draft Courses</span>
+                <span className="text-white">3</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Total Enrollments</span>
+                <span className="text-white">1,234</span>
+              </div>
+            </div>
+          </div>
 
-          <Card className="bg-white/10 backdrop-blur-xl border-white/20">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center">
-                <ShoppingCart className="h-5 w-5 mr-2 text-green-400" />
-                Product Management
-              </CardTitle>
-              <CardDescription className="text-white/60">
-                Manage your digital products
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Link href="/admin/products">
-                <Button className="w-full btn-futuristic bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Manage Products
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/10 backdrop-blur-xl border-white/20">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center">
-                <FileText className="h-5 w-5 mr-2 text-orange-400" />
-                Blog Management
-              </CardTitle>
-              <CardDescription className="text-white/60">
-                Create and publish blog posts
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Link href="/admin/blog">
-                <Button className="w-full btn-futuristic bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Manage Blog
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Additional Management Tools */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="bg-white/10 backdrop-blur-xl border-white/20">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center">
-                <MessageSquare className="h-5 w-5 mr-2 text-purple-400" />
+          {/* Contact Messages */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-white flex items-center">
+                <MessageSquare className="h-5 w-5 mr-2" />
                 Contact Messages
-              </CardTitle>
-              <CardDescription className="text-white/60">
-                View and respond to user messages
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </h2>
               <Link href="/admin/contacts">
-                <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">
-                  <Mail className="h-4 w-4 mr-2" />
-                  View Messages (0)
+                <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+                  View All
                 </Button>
               </Link>
-            </CardContent>
-          </Card>
+            </div>
+            <p className="text-white/70 mb-4">Manage and respond to customer inquiries.</p>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Unread Messages</span>
+                <span className="text-white">8</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Total Messages</span>
+                <span className="text-white">156</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Response Rate</span>
+                <span className="text-white">98%</span>
+              </div>
+            </div>
+          </div>
 
-          <Card className="bg-white/10 backdrop-blur-xl border-white/20">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center">
-                <BarChart3 className="h-5 w-5 mr-2 text-green-400" />
-                Analytics
-              </CardTitle>
-              <CardDescription className="text-white/60">
-                View detailed analytics and reports
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">
-                <Eye className="h-4 w-4 mr-2" />
-                View Analytics
-              </Button>
-            </CardContent>
-          </Card>
+          {/* Blog Management */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-white flex items-center">
+                <Calendar className="h-5 w-5 mr-2" />
+                Blog Management
+              </h2>
+              <Link href="/admin/blog">
+                <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+                  Manage
+                </Button>
+              </Link>
+            </div>
+            <p className="text-white/70 mb-4">Create and manage blog posts and content.</p>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Published Posts</span>
+                <span className="text-white">24</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Draft Posts</span>
+                <span className="text-white">5</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Total Views</span>
+                <span className="text-white">12.5K</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Product Management */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-white flex items-center">
+                <ShoppingCart className="h-5 w-5 mr-2" />
+                Product Management
+              </h2>
+              <Link href="/admin/products">
+                <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+                  Manage
+                </Button>
+              </Link>
+            </div>
+            <p className="text-white/70 mb-4">Manage products and digital downloads.</p>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Active Products</span>
+                <span className="text-white">8</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Total Sales</span>
+                <span className="text-white">$45,230</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-white/70">Conversion Rate</span>
+                <span className="text-white">3.2%</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

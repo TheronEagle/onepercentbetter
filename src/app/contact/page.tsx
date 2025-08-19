@@ -1,16 +1,14 @@
+
 'use client'
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { Mail, Phone, MapPin, Send, MessageSquare, Clock, CheckCircle } from 'lucide-react'
-import { useToast } from '@/components/toast-notification'
+import { Label } from '@/components/ui/label'
+import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
 
 export default function ContactPage() {
-  const { showToast } = useToast()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,281 +16,210 @@ export default function ContactPage() {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate form submission
+
+    // Create new message
+    const newMessage = {
+      id: Date.now().toString(),
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+      createdAt: new Date().toISOString(),
+      isRead: false
+    }
+
+    // Save to localStorage
+    const existingMessages = JSON.parse(localStorage.getItem('contactMessages') || '[]')
+    existingMessages.unshift(newMessage)
+    localStorage.setItem('contactMessages', JSON.stringify(existingMessages))
+
+    // Simulate API call
     setTimeout(() => {
-      showToast({
-        type: 'success',
-        title: 'Message Sent!',
-        message: 'Thank you for contacting us. We\'ll get back to you soon.',
-        duration: 5000
-      })
-      setFormData({ name: '', email: '', subject: '', message: '' })
       setIsSubmitting(false)
-    }, 2000)
+      setIsSubmitted(true)
+      setFormData({ name: '', email: '', subject: '', message: '' })
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSubmitted(false), 5000)
+    }, 1000)
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     })
   }
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: 'Email Us',
-      description: 'Get in touch via email',
-      value: 'hello@1percentbetter.com',
-      color: 'text-blue-500'
-    },
-    {
-      icon: Phone,
-      title: 'Call Us',
-      description: 'Speak with our team',
-      value: '+1 (555) 123-4567',
-      color: 'text-green-500'
-    },
-    {
-      icon: MapPin,
-      title: 'Visit Us',
-      description: 'Our office location',
-      value: '123 Learning St, Education City, EC 12345',
-      color: 'text-purple-500'
-    }
-  ]
-
-  const features = [
-    {
-      icon: MessageSquare,
-      title: '24/7 Support',
-      description: 'Round-the-clock assistance for all your learning needs',
-      color: 'text-orange-500'
-    },
-    {
-      icon: Clock,
-      title: 'Quick Response',
-      description: 'We typically respond within 2-4 hours',
-      color: 'text-blue-500'
-    },
-    {
-      icon: CheckCircle,
-      title: 'Expert Team',
-      description: 'Get help from our experienced learning specialists',
-      color: 'text-green-500'
-    }
-  ]
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative py-24 bg-gradient-to-r from-orange-500/10 to-purple-500/10">
-        <div className="absolute inset-0 bg-pattern opacity-50" />
-        <div className="relative container mx-auto px-4 text-center z-10">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient hero-text-animate cursor-text">
-            Get in Touch
+    <div className="min-h-screen pt-20 pb-12 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Get in <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">Touch</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-foreground/80 max-w-3xl mx-auto hero-text-animate stagger-1 cursor-text">
-            Have questions about our courses or need support? We're here to help you succeed in your learning journey.
+          <p className="text-xl text-white/80 max-w-2xl mx-auto">
+            Have questions about our courses or need help? We'd love to hear from you.
           </p>
         </div>
-      </section>
 
-      {/* Contact Information */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {contactInfo.map((info, index) => (
-              <div
-                key={index}
-                className="text-center hero-text-animate cursor-card interactive"
-                style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* Contact Form */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+            <h2 className="text-2xl font-bold text-white mb-6">Send us a message</h2>
+            
+            {isSubmitted && (
+              <div className="mb-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg flex items-center">
+                <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
+                <span className="text-green-100">Message sent successfully! We'll get back to you soon.</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <Label htmlFor="name" className="text-white">Name</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="mt-2 bg-white/5 border-white/20 text-white placeholder:text-white/50"
+                    placeholder="Your full name"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email" className="text-white">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="mt-2 bg-white/5 border-white/20 text-white placeholder:text-white/50"
+                    placeholder="your@email.com"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="subject" className="text-white">Subject</Label>
+                <Input
+                  id="subject"
+                  name="subject"
+                  type="text"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  className="mt-2 bg-white/5 border-white/20 text-white placeholder:text-white/50"
+                  placeholder="What's this about?"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="message" className="text-white">Message</Label>
+                <Textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={6}
+                  className="mt-2 bg-white/5 border-white/20 text-white placeholder:text-white/50 resize-none"
+                  placeholder="Tell us more about your inquiry..."
+                />
+              </div>
+
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-medium py-3"
               >
-                <Card className="p-8 hover:shadow-2xl transition-all duration-500 card-premium card-hover-3d">
-                  <div className={`flex justify-center mb-6 ${info.color} cursor-magnet`}>
-                    <info.icon className="h-12 w-12" />
+                {isSubmitting ? (
+                  <div className="flex items-center">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Sending...
                   </div>
-                  <CardTitle className="text-xl mb-3 cursor-text">{info.title}</CardTitle>
-                  <CardDescription className="mb-4 cursor-text">{info.description}</CardDescription>
-                  <p className="text-foreground font-medium cursor-text">{info.value}</p>
-                </Card>
-              </div>
-            ))}
+                ) : (
+                  <>
+                    <Send className="h-4 w-4 mr-2" />
+                    Send Message
+                  </>
+                )}
+              </Button>
+            </form>
           </div>
-        </div>
-      </section>
 
-      {/* Main Content */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Contact Form */}
-            <div className="hero-text-animate">
-              <Card className="p-8 hover:shadow-2xl transition-all duration-500 card-premium">
-                <CardHeader>
-                  <CardTitle className="text-3xl mb-2 cursor-text">Send us a Message</CardTitle>
-                  <CardDescription className="cursor-text">
-                    Fill out the form below and we'll get back to you as soon as possible.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="name" className="cursor-text">Name</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          type="text"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          required
-                          className="form-premium cursor-text"
-                          placeholder="Your full name"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email" className="cursor-text">Email</Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                          className="form-premium cursor-text"
-                          placeholder="your.email@example.com"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="subject" className="cursor-text">Subject</Label>
-                      <Input
-                        id="subject"
-                        name="subject"
-                        type="text"
-                        value={formData.subject}
-                        onChange={handleInputChange}
-                        required
-                        className="form-premium cursor-text"
-                        placeholder="What's this about?"
-                      />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="message" className="cursor-text">Message</Label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        required
-                        rows={6}
-                        className="form-premium cursor-text resize-none"
-                        placeholder="Tell us more about your inquiry..."
-                      />
-                    </div>
-                    
-                    <div className="interactive cursor-button">
-                      <Button 
-                        type="submit" 
-                        className="w-full btn-futuristic btn-haptic text-lg py-4"
-                        disabled={isSubmitting}
-                      >
-                        <Send className="mr-2 h-5 w-5" />
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
-                      </Button>
-                    </div>
-                  </form>
-                </CardContent>
-              </Card>
-            </div>
+          {/* Contact Information */}
+          <div className="space-y-8">
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+              <h2 className="text-2xl font-bold text-white mb-6">Contact Information</h2>
+              
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-orange-500/20 rounded-lg">
+                    <Mail className="h-6 w-6 text-orange-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white">Email</h3>
+                    <p className="text-white/70">hello@1percentbetter.com</p>
+                    <p className="text-white/50 text-sm">We'll respond within 24 hours</p>
+                  </div>
+                </div>
 
-            {/* Features and FAQ */}
-            <div className="space-y-8">
-              {/* Features */}
-              <div className="hero-text-animate" style={{ animationDelay: '0.3s' }}>
-                <h2 className="text-3xl font-bold mb-6 text-gradient cursor-text">Why Choose Us?</h2>
-                <div className="space-y-6">
-                  {features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-4 cursor-card interactive"
-                      style={{ animationDelay: `${0.4 + index * 0.1}s` }}
-                    >
-                      <div className={`flex-shrink-0 ${feature.color} cursor-magnet`}>
-                        <feature.icon className="h-8 w-8" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold mb-2 cursor-text">{feature.title}</h3>
-                        <p className="text-foreground/70 cursor-text">{feature.description}</p>
-                      </div>
-                    </div>
-                  ))}
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-blue-500/20 rounded-lg">
+                    <Phone className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white">Phone</h3>
+                    <p className="text-white/70">+1 (555) 123-4567</p>
+                    <p className="text-white/50 text-sm">Mon-Fri 9AM-6PM EST</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-purple-500/20 rounded-lg">
+                    <MapPin className="h-6 w-6 text-purple-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white">Office</h3>
+                    <p className="text-white/70">123 Learning Street</p>
+                    <p className="text-white/70">Education City, EC 12345</p>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              {/* FAQ Preview */}
-              <div className="hero-text-animate" style={{ animationDelay: '0.6s' }}>
-                <h2 className="text-3xl font-bold mb-6 text-gradient cursor-text">Frequently Asked Questions</h2>
-                <div className="space-y-4">
-                  <div className="p-4 bg-card rounded-lg border border-border hover:border-orange-500/30 transition-all duration-300 cursor-card interactive">
-                    <h3 className="font-semibold mb-2 cursor-text">How do I get started with a course?</h3>
-                    <p className="text-foreground/70 cursor-text">
-                      Simply browse our course catalog, select a course that interests you, and click "Enroll Now" to begin your learning journey.
-                    </p>
-                  </div>
-                  <div className="p-4 bg-card rounded-lg border border-border hover:border-orange-500/30 transition-all duration-300 cursor-card interactive">
-                    <h3 className="font-semibold mb-2 cursor-text">What if I need help during my course?</h3>
-                    <p className="text-foreground/70 cursor-text">
-                      Our support team is available 24/7 to help you with any questions or technical issues you may encounter.
-                    </p>
-                  </div>
-                  <div className="p-4 bg-card rounded-lg border border-border hover:border-orange-500/30 transition-all duration-300 cursor-card interactive">
-                    <h3 className="font-semibold mb-2 cursor-text">Can I get a refund if I'm not satisfied?</h3>
-                    <p className="text-foreground/70 cursor-text">
-                      Yes, we offer a 30-day money-back guarantee for all our courses. If you're not satisfied, we'll refund your purchase.
-                    </p>
-                  </div>
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+              <h3 className="text-xl font-bold text-white mb-4">Frequently Asked Questions</h3>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-medium text-white">How long does it take to complete a course?</h4>
+                  <p className="text-white/70 text-sm">Most courses can be completed in 2-4 weeks with 1-2 hours of daily study.</p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-white">Do you offer refunds?</h4>
+                  <p className="text-white/70 text-sm">Yes, we offer a 30-day money-back guarantee on all courses.</p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-white">Can I access courses on mobile?</h4>
+                  <p className="text-white/70 text-sm">Absolutely! Our platform is fully responsive and works on all devices.</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-orange-500/10 to-purple-500/10">
-        <div className="container mx-auto px-4 text-center">
-          <div className="hero-text-animate">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient cursor-text">
-              Ready to Start Learning?
-            </h2>
-            <p className="text-xl mb-8 text-foreground/80 max-w-2xl mx-auto cursor-text">
-              Join thousands of learners who are already transforming their careers with our courses.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <div className="interactive cursor-button">
-                <Button size="lg" className="btn-futuristic btn-haptic text-lg px-8 py-4">
-                  Browse Courses
-                </Button>
-              </div>
-              <div className="interactive cursor-button">
-                <Button size="lg" variant="outline" className="btn-haptic text-lg px-8 py-4 border-2">
-                  View Pricing
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   )
 }
-

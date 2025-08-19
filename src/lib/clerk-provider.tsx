@@ -9,15 +9,15 @@ interface ClerkProviderWrapperProps {
 }
 
 export function ClerkProviderWrapper({ children }: ClerkProviderWrapperProps) {
-  // Check if Clerk is properly configured
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
-  // If Clerk is not configured or using placeholder keys, render without Clerk
+  // For development/demo mode when Clerk is not configured
   if (!publishableKey || publishableKey === 'pk_test_placeholder' || publishableKey.length < 20) {
+    console.log('Clerk not configured - using demo mode')
     return <>{children}</>
   }
 
-  // If Clerk is properly configured, wrap with ClerkProvider
+  // Production Clerk setup
   return (
     <ClerkProvider
       publishableKey={publishableKey}
