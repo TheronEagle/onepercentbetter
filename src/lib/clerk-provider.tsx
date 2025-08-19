@@ -10,9 +10,11 @@ interface ClerkProviderWrapperProps {
 export function ClerkProviderWrapper({ children }: ClerkProviderWrapperProps) {
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
-  if (!publishableKey) {
-    console.error('Missing Clerk Publishable Key')
-    return <div className="text-red-500 p-4">Authentication service unavailable</div>
+  // Check if Clerk is properly configured
+  if (!publishableKey || !publishableKey.startsWith('pk_') || publishableKey.length < 20) {
+    console.warn('Clerk not properly configured, using fallback mode')
+    // Return children without Clerk wrapper for demo mode
+    return <>{children}</>
   }
 
   return (

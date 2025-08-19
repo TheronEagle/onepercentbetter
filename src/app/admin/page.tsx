@@ -30,10 +30,10 @@ export default function AdminPage() {
             setUser(clerkUser)
             // Check if user is admin - replace with your actual Clerk user ID
             const adminUserIds = [
-              'user_318cjhf35kxyPDDOtlasIM0q47T', // Replace this with your actual Clerk user ID
+              // Add your actual Clerk user ID here when you get it
             ]
             const adminEmails = [
-              'coreymitchell0709@gmail.com', // Replace with your actual email
+              'coreymitchell0709@gmail.com', // Your admin email
             ]
             
             // Check by user ID (more secure) or email as fallback

@@ -1,12 +1,18 @@
 import { auth } from '@clerk/nextjs'
+import { clerkClient } from '@clerk/nextjs'
 import { redirect } from "next/navigation"
 
 // Check if Clerk keys are properly configured
 const isClerkConfigured = () => {
-  return process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
-         process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY !== 'user_318cjhf35kxyPDDOtlasIM0q47T' &&
-         process.env.CLERK_SECRET_KEY &&
-         process.env.CLERK_SECRET_KEY !== 'user_318cjhf35kxyPDDOtlasIM0q47T'
+  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  const secretKey = process.env.CLERK_SECRET_KEY
+  
+  return publishableKey && 
+         publishableKey.startsWith('pk_') && 
+         publishableKey.length > 20 &&
+         secretKey && 
+         secretKey.startsWith('sk_') && 
+         secretKey.length > 20
 }
 
 export default async function AdminLayout({
@@ -31,13 +37,25 @@ export default async function AdminLayout({
       redirect('/auth/signin?redirect=/admin')
     }
 
-    // Define admin user IDs - replace with your actual Clerk user ID
+    // Define admin user IDs and emails - replace with your actual details
     const adminUserIds = [
-      'user_318cjhf35kxyPDDOtlasIM0q47T', // Replace this with your actual Clerk user ID
+      // Add your actual Clerk user ID here when you get it
+    ]
+    
+    const adminEmails = [
+      'coreymitchell0709@gmail.com', // Your admin email
     ]
 
-    // Check if current user is admin
-    if (!adminUserIds.includes(userId)) {
+    // Get user info to check email if needed
+    const user = await clerkClient.users.getUser(userId)
+    
+    // Check if current user is admin (by ID or email)
+    const isAdminById = adminUserIds.length > 0 && adminUserIds.includes(userId)
+    const isAdminByEmail = user?.emailAddresses?.some(email => 
+      adminEmails.includes(email.emailAddress)
+    )
+    
+    if (!isAdminById && !isAdminByEmail) {
       redirect('/')
     }
 

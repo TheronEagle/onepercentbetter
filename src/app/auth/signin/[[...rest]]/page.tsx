@@ -66,7 +66,7 @@ export default function SignInPage() {
             <ClerkSignIn
               routing="path"
               path="/auth/signin"
-              redirectUrl="/admin"
+              fallbackRedirectUrl="/admin"
               signUpUrl="/auth/signup"
             />
           </div>
