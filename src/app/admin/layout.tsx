@@ -4,9 +4,9 @@ import { redirect } from "next/navigation"
 // Check if Clerk keys are properly configured
 const isClerkConfigured = () => {
   return process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
-         process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY !== 'pk_test_placeholder' &&
+         process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY !== 'user_318cjhf35kxyPDDOtlasIM0q47T' &&
          process.env.CLERK_SECRET_KEY &&
-         process.env.CLERK_SECRET_KEY !== 'sk_test_placeholder'
+         process.env.CLERK_SECRET_KEY !== 'user_318cjhf35kxyPDDOtlasIM0q47T'
 }
 
 export default async function AdminLayout({
@@ -33,7 +33,7 @@ export default async function AdminLayout({
 
     // Define admin user IDs - replace with your actual Clerk user ID
     const adminUserIds = [
-      'user_2r8qXXXXXXXXXXXXXXXXXX', // Replace this with your actual Clerk user ID
+      'user_318cjhf35kxyPDDOtlasIM0q47T', // Replace this with your actual Clerk user ID
     ]
 
     // Check if current user is admin

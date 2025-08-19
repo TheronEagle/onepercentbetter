@@ -11,7 +11,7 @@ import DebugUser from './debug-user'
 // Check if Clerk is configured
 const isClerkConfigured = () => {
   const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-  return key && key !== 'pk_test_placeholder' && key.length > 20
+  return key && key !== 'user_318cjhf35kxyPDDOtlasIM0q47T' && key.length > 20
 }
 
 export default function AdminPage() {
@@ -30,10 +30,10 @@ export default function AdminPage() {
             setUser(clerkUser)
             // Check if user is admin - replace with your actual Clerk user ID
             const adminUserIds = [
-              'user_2r8qXXXXXXXXXXXXXXXXXX', // Replace this with your actual Clerk user ID
+              'user_318cjhf35kxyPDDOtlasIM0q47T', // Replace this with your actual Clerk user ID
             ]
             const adminEmails = [
-              'your-admin-email@example.com', // Replace with your actual email
+              'coreymitchell0709@gmail.com', // Replace with your actual email
             ]
             
             // Check by user ID (more secure) or email as fallback
