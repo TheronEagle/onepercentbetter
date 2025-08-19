@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -25,7 +24,7 @@ function useClerkSafely() {
 
         // Dynamic import of Clerk hooks
         const { useUser, useClerk } = await import('@clerk/nextjs')
-        
+
         // This is a workaround - we'll handle Clerk state manually
         setIsLoaded(true)
       } catch (error) {
@@ -42,7 +41,7 @@ function useClerkSafely() {
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-  const { enableCursor, disableCursor } = useAnimation()
+  const { enableCursor, disableCursor, setCursorVariant } = useAnimation()
   const { user, isLoaded, signOut } = useClerkSafely()
 
   const handleSignOut = async () => {
@@ -58,16 +57,25 @@ export default function Navigation() {
   const fallbackUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null
   const currentUser = user || (fallbackUser ? JSON.parse(fallbackUser) : null)
 
+  // Cursor variant handlers
+  const handleCursorEnter = () => {
+    setCursorVariant('text')
+  }
+
+  const handleCursorLeave = () => {
+    setCursorVariant('default')
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/10 backdrop-blur-xl border-b border-white/20 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="flex items-center space-x-2 font-bold text-xl text-white hover:text-orange-400 transition-colors btn-haptic"
-            onMouseEnter={enableCursor}
-            onMouseLeave={disableCursor}
+            onMouseEnter={handleCursorEnter}
+            onMouseLeave={handleCursorLeave}
           >
             <BookOpen className="h-8 w-8" />
             <span className="bg-gradient-to-r from-white to-orange-400 bg-clip-text text-transparent">
@@ -77,43 +85,43 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link 
-              href="/courses" 
+            <Link
+              href="/courses"
               className="text-white/80 hover:text-white transition-colors font-medium btn-haptic"
-              onMouseEnter={enableCursor}
-              onMouseLeave={disableCursor}
+              onMouseEnter={handleCursorEnter}
+              onMouseLeave={handleCursorLeave}
             >
               Courses
             </Link>
-            <Link 
-              href="/products" 
+            <Link
+              href="/products"
               className="text-white/80 hover:text-white transition-colors font-medium btn-haptic"
-              onMouseEnter={enableCursor}
-              onMouseLeave={disableCursor}
+              onMouseEnter={handleCursorEnter}
+              onMouseLeave={handleCursorLeave}
             >
               Products
             </Link>
-            <Link 
-              href="/blog" 
+            <Link
+              href="/blog"
               className="text-white/80 hover:text-white transition-colors font-medium btn-haptic"
-              onMouseEnter={enableCursor}
-              onMouseLeave={disableCursor}
+              onMouseEnter={handleCursorEnter}
+              onMouseLeave={handleCursorLeave}
             >
               Blog
             </Link>
-            <Link 
-              href="/about" 
+            <Link
+              href="/about"
               className="text-white/80 hover:text-white transition-colors font-medium btn-haptic"
-              onMouseEnter={enableCursor}
-              onMouseLeave={disableCursor}
+              onMouseEnter={handleCursorEnter}
+              onMouseLeave={handleCursorLeave}
             >
               About
             </Link>
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className="text-white/80 hover:text-white transition-colors font-medium btn-haptic"
-              onMouseEnter={enableCursor}
-              onMouseLeave={disableCursor}
+              onMouseEnter={handleCursorEnter}
+              onMouseLeave={handleCursorLeave}
             >
               Contact
             </Link>
@@ -121,11 +129,11 @@ export default function Navigation() {
             {/* Auth Buttons */}
             {currentUser ? (
               <div className="flex items-center space-x-4">
-                <Link 
+                <Link
                   href="/admin"
                   className="text-white/80 hover:text-white transition-colors font-medium btn-haptic"
-                  onMouseEnter={enableCursor}
-                  onMouseLeave={disableCursor}
+                  onMouseEnter={handleCursorEnter}
+                  onMouseLeave={handleCursorLeave}
                 >
                   <User className="h-4 w-4" />
                 </Link>
@@ -134,8 +142,8 @@ export default function Navigation() {
                   variant="outline"
                   size="sm"
                   className="btn-futuristic btn-haptic border-white/20 text-white hover:bg-white/10"
-                  onMouseEnter={enableCursor}
-                  onMouseLeave={disableCursor}
+                  onMouseEnter={handleCursorEnter}
+                  onMouseLeave={handleCursorLeave}
                 >
                   <LogOut className="h-4 w-4 mr-2" />
                   Sign Out
@@ -143,18 +151,18 @@ export default function Navigation() {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Link 
+                <Link
                   href="/auth/signin"
                   className="text-white/80 hover:text-white transition-colors font-medium btn-haptic"
-                  onMouseEnter={enableCursor}
-                  onMouseLeave={disableCursor}
+                  onMouseEnter={handleCursorEnter}
+                  onMouseLeave={handleCursorLeave}
                 >
                   Sign In
                 </Link>
-                <Link 
+                <Link
                   href="/auth/signup"
-                  onMouseEnter={enableCursor}
-                  onMouseLeave={disableCursor}
+                  onMouseEnter={handleCursorEnter}
+                  onMouseLeave={handleCursorLeave}
                 >
                   <Button className="btn-futuristic btn-haptic bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white border-none">
                     Get Started
@@ -181,45 +189,45 @@ export default function Navigation() {
         {isOpen && (
           <div className="md:hidden bg-white/10 backdrop-blur-xl border-t border-white/20 py-4">
             <div className="flex flex-col space-y-4">
-              <Link 
-                href="/courses" 
+              <Link
+                href="/courses"
                 className="text-white/80 hover:text-white transition-colors font-medium px-4 py-2"
                 onClick={() => setIsOpen(false)}
               >
                 Courses
               </Link>
-              <Link 
-                href="/products" 
+              <Link
+                href="/products"
                 className="text-white/80 hover:text-white transition-colors font-medium px-4 py-2"
                 onClick={() => setIsOpen(false)}
               >
                 Products
               </Link>
-              <Link 
-                href="/blog" 
+              <Link
+                href="/blog"
                 className="text-white/80 hover:text-white transition-colors font-medium px-4 py-2"
                 onClick={() => setIsOpen(false)}
               >
                 Blog
               </Link>
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 className="text-white/80 hover:text-white transition-colors font-medium px-4 py-2"
                 onClick={() => setIsOpen(false)}
               >
                 About
               </Link>
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="text-white/80 hover:text-white transition-colors font-medium px-4 py-2"
                 onClick={() => setIsOpen(false)}
               >
                 Contact
               </Link>
-              
+
               {currentUser ? (
                 <div className="px-4 py-2 space-y-2">
-                  <Link 
+                  <Link
                     href="/admin"
                     className="block text-white/80 hover:text-white transition-colors font-medium"
                     onClick={() => setIsOpen(false)}
@@ -240,14 +248,14 @@ export default function Navigation() {
                 </div>
               ) : (
                 <div className="px-4 py-2 space-y-2">
-                  <Link 
+                  <Link
                     href="/auth/signin"
                     className="block text-white/80 hover:text-white transition-colors font-medium"
                     onClick={() => setIsOpen(false)}
                   >
                     Sign In
                   </Link>
-                  <Link 
+                  <Link
                     href="/auth/signup"
                     onClick={() => setIsOpen(false)}
                   >

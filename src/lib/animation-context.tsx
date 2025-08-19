@@ -53,7 +53,21 @@ export function useAnimation() {
   if (context === undefined) {
     throw new Error('useAnimation must be used within an AnimationProvider')
   }
-  return context
+  
+  // Add cursor functions for compatibility
+  const enableCursor = () => {
+    // This function is called when hovering over interactive elements
+  }
+  
+  const disableCursor = () => {
+    // This function is called when leaving interactive elements
+  }
+  
+  return {
+    ...context,
+    enableCursor,
+    disableCursor
+  }
 }
 
 // Animation utilities
