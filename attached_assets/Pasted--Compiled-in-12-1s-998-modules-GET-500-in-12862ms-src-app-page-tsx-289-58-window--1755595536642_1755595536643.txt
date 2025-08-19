@@ -1,0 +1,79 @@
+ ✓ Compiled / in 12.1s (998 modules)
+ GET / 500 in 12862ms
+ ⨯ src/app/page.tsx (289:58) @ window
+ ⨯ ReferenceError: window is not defined
+    at HomePage (./src/app/page.tsx:474:68)
+digest: "2237423507"
+  287 |         className="relative min-h-screen flex items-center justify-center py-24"
+  288 |         style={{
+> 289 |           transform: `translateZ(${Math.max(0, scrollY - window.innerHeight) * 0.1}px)`,
+      |                                                          ^
+  290 |           opacity: Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 0.5) / (window.innerHeight * 0.5)))
+  291 |         }}
+  292 |       >
+ ✓ Compiled in 933ms (440 modules)
+ ⚠ Cross origin request detected from 5531f5cd-4723-4f16-a0ab-08123d58dd28-00-205ohm1e5z3a7.spock.replit.dev to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (166kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ POST / 200 in 155ms
+ POST / 200 in 61ms
+ ⨯ src/middleware.ts (33:12) @ protect
+ ⨯ auth(...).protect is not a function
+  31 |   // Protect routes that are not public
+  32 |   if (!isPublicRoute(request)) {
+> 33 |     auth().protect()
+     |            ^
+  34 |   }
+  35 | })
+  36 |
+ ○ Compiling /_error ...
+ ⨯ src/app/page.tsx (289:58) @ window
+ ⨯ ReferenceError: window is not defined
+    at HomePage (./src/app/page.tsx:474:68)
+digest: "2237423507"
+  287 |         className="relative min-h-screen flex items-center justify-center py-24"
+  288 |         style={{
+> 289 |           transform: `translateZ(${Math.max(0, scrollY - window.innerHeight) * 0.1}px)`,
+      |                                                          ^
+  290 |           opacity: Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 0.5) / (window.innerHeight * 0.5)))
+  291 |         }}
+  292 |       >
+ GET / 500 in 1795ms
+ ✓ Compiled /_error in 4.2s (1200 modules)
+ GET /admin 404 in 2ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 575ms (1203 modules)
+ ✓ Compiled in 630ms (1203 modules)
+ ⨯ Error [ERR_HTTP_HEADERS_SENT]: Cannot append headers after they are sent to the client
+    at ServerResponse.appendHeader (node:_http_outgoing:711:11)
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+digest: "508227741"
+ POST / 200 in 39ms
+ POST / 200 in 10ms
+ GET /manifest.json 404 in 30ms
+ ○ Compiling /auth/signin/[[...rest]] ...
+ ✓ Compiled /auth/signin/[[...rest]] in 2.8s (1213 modules)
+ ⨯ src/middleware.ts (33:12) @ protect
+ ⨯ auth(...).protect is not a function
+  31 |   // Protect routes that are not public
+  32 |   if (!isPublicRoute(request)) {
+> 33 |     auth().protect()
+     |            ^
+  34 |   }
+  35 | })
+  36 |
+ GET /auth/signin/SignIn_clerk_catchall_check_1755595518810 200 in 279ms
+ ⨯ src/middleware.ts (33:12) @ protect
+ ⨯ auth(...).protect is not a function
+  31 |   // Protect routes that are not public
+  32 |   if (!isPublicRoute(request)) {
+> 33 |     auth().protect()
+     |            ^
+  34 |   }
+  35 | })
+  36 |
+ GET /admin 404 in 1ms
+ ⨯ Error [ERR_HTTP_HEADERS_SENT]: Cannot append headers after they are sent to the client
+    at ServerResponse.appendHeader (node:_http_outgoing:711:11)
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+digest: "508227741"
