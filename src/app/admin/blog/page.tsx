@@ -120,7 +120,7 @@ export default function BlogPage() {
                          post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
     const matchesStatus = selectedStatus === 'all' || post.status === selectedStatus
     const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory
-    
+
     return matchesSearch && matchesStatus && matchesCategory
   })
 
@@ -193,7 +193,7 @@ export default function BlogPage() {
                   className="pl-10 bg-white/10 border-white/20 text-white placeholder-white/50 focus:border-orange-500"
                 />
               </div>
-              
+
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -205,7 +205,7 @@ export default function BlogPage() {
                   </option>
                 ))}
               </select>
-              
+
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
@@ -217,7 +217,7 @@ export default function BlogPage() {
                   </option>
                 ))}
               </select>
-              
+
               <Button 
                 onClick={() => {
                   setSearchTerm('')
@@ -264,12 +264,12 @@ export default function BlogPage() {
                   </span>
                 </div>
               </div>
-              
+
               <CardContent className="p-6">
                 <div className="mb-4">
                   <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">{post.title}</h3>
                   <p className="text-white/70 text-sm line-clamp-3 mb-3">{post.excerpt}</p>
-                  
+
                   <div className="flex items-center justify-between text-sm text-white/60 mb-3">
                     <span className="flex items-center">
                       <User className="h-4 w-4 mr-1" />
@@ -280,7 +280,7 @@ export default function BlogPage() {
                       {post.publishedAt || post.createdAt}
                     </span>
                   </div>
-                  
+
                   <div className="flex items-center justify-between text-sm text-white/60 mb-3">
                     <span className="flex items-center">
                       <Eye className="h-4 w-4 mr-1" />
@@ -291,12 +291,12 @@ export default function BlogPage() {
                       {post.likes} likes
                     </span>
                   </div>
-                  
+
                   <div className="flex items-center text-sm text-white/60 mb-4">
                     <Tag className="h-4 w-4 mr-1" />
                     {post.category}
                   </div>
-                  
+
                   <div className="flex flex-wrap gap-1 mb-4">
                     {post.tags.map((tag, index) => (
                       <span key={index} className="px-2 py-1 bg-white/10 rounded text-xs text-white/70">
@@ -305,7 +305,7 @@ export default function BlogPage() {
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="flex items-center justify-between">
                   <div className="flex space-x-2">
                     <Button size="sm" variant="outline" className="btn-haptic border-white/20 text-white hover:bg-white/10">
@@ -322,7 +322,7 @@ export default function BlogPage() {
                       Edit
                     </Button>
                   </div>
-                  
+
                   <div className="flex items-center space-x-2">
                     <Button 
                       size="sm" 
@@ -336,7 +336,7 @@ export default function BlogPage() {
                     >
                       {post.featured ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
                     </Button>
-                    
+
                     <select
                       value={post.status}
                       onChange={(e) => handleStatusChange(post.id, e.target.value)}
@@ -346,7 +346,7 @@ export default function BlogPage() {
                       <option value="published" className="bg-slate-800">Published</option>
                       <option value="archived" className="bg-slate-800">Archived</option>
                     </select>
-                    
+
                     <Button 
                       size="sm" 
                       variant="outline" 
@@ -396,7 +396,7 @@ export default function BlogPage() {
                 <X className="h-4 w-4" />
               </Button>
             </div>
-            
+
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -420,7 +420,7 @@ export default function BlogPage() {
                   </select>
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-white font-medium mb-2">Excerpt</label>
                 <Textarea 
@@ -430,7 +430,7 @@ export default function BlogPage() {
                   className="bg-white/10 border-white/20 text-white placeholder-white/50 focus:border-orange-500 resize-none"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-white font-medium mb-2">Content</label>
                 <Textarea 
@@ -440,7 +440,7 @@ export default function BlogPage() {
                   className="bg-white/10 border-white/20 text-white placeholder-white/50 focus:border-orange-500 resize-none"
                 />
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-white font-medium mb-2">Author</label>
@@ -467,7 +467,7 @@ export default function BlogPage() {
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-white font-medium mb-2">Featured Image</label>
                 <div className="border-2 border-dashed border-white/20 rounded-lg p-6 text-center">
@@ -476,11 +476,11 @@ export default function BlogPage() {
                   <p className="text-white/50 text-sm">PNG, JPG up to 10MB</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <label className="flex items-center space-x-2 text-white">
-                    <input type="checkbox" className="rounded bg-white/10 border-white/20" />
+                    <input name="featured" type="checkbox" className="rounded bg-white/10 border-white/20" />
                     <span>Featured Post</span>
                   </label>
                   <label className="flex items-center space-x-2 text-white">
@@ -488,7 +488,7 @@ export default function BlogPage() {
                     <span>Allow Comments</span>
                   </label>
                 </div>
-                
+
                 <div className="flex items-center space-x-4">
                   <Button 
                     type="button"
@@ -514,5 +514,3 @@ export default function BlogPage() {
     </div>
   )
 }
-
-

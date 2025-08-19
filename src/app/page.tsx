@@ -37,7 +37,7 @@ export default function HomePage() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY
       setScrollY(scrollPosition)
-      
+
       // Calculate current section based on scroll position
       const sections = document.querySelectorAll('[data-section]')
       const windowHeight = window.innerHeight
@@ -286,8 +286,8 @@ export default function HomePage() {
         data-section="1"
         className="relative min-h-screen flex items-center justify-center py-24"
         style={{
-          transform: `translateZ(${Math.max(0, scrollY - (typeof window !== 'undefined' ? window.innerHeight : 0)) * 0.1}px)`,
-          opacity: Math.max(0.3, Math.min(1, (scrollY - (typeof window !== 'undefined' ? window.innerHeight : 0) * 0.5) / ((typeof window !== 'undefined' ? window.innerHeight : 0) * 0.5)))
+          transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight) * 0.1 : 0}px)`,
+          opacity: typeof window !== 'undefined' ? Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 0.5) / (window.innerHeight * 0.5))) : 1
         }}
       >
         <div className="container mx-auto px-4">
@@ -295,7 +295,7 @@ export default function HomePage() {
             <h2 
               className="text-4xl md:text-5xl font-bold mb-6 text-gradient cursor-text"
               style={{
-                transform: `translateZ(${Math.max(0, scrollY - window.innerHeight) * 0.2}px) scale(${Math.max(0.9, 1 - Math.max(0, scrollY - window.innerHeight) / 1000)})`
+                transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight) * 0.2 : 0}px) scale(${Math.max(0.9, 1 - Math.max(0, scrollY - window.innerHeight) / 1000)})`
               }}
             >
               Why Choose 1% Better?
@@ -303,13 +303,13 @@ export default function HomePage() {
             <p 
               className="text-xl text-foreground/70 max-w-2xl mx-auto cursor-text"
               style={{
-                transform: `translateZ(${Math.max(0, scrollY - window.innerHeight) * 0.15}px)`
+                transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight) * 0.15 : 0}px)`
               }}
             >
               Experience learning reimagined with cutting-edge technology and proven methodologies.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div
@@ -317,7 +317,7 @@ export default function HomePage() {
                 className="text-center p-6 rounded-2xl bg-card border border-border hover:border-orange-500/30 transition-all duration-300 card-premium hero-text-animate cursor-card interactive"
                 style={{ 
                   animationDelay: `${0.2 + index * 0.1}s`,
-                  transform: `translateZ(${Math.max(0, scrollY - window.innerHeight) * 0.1 + index * 20}px) translateY(${Math.max(0, scrollY - window.innerHeight) * 0.05}px) rotateY(${index * 5}deg)`,
+                  transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight) * 0.1 + index * 20 : 0}px) translateY(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight) * 0.05 : 0}px) rotateY(${index * 5}deg)`,
                   opacity: Math.max(0.5, Math.min(1, (scrollY - window.innerHeight * 0.8) / (window.innerHeight * 0.3)))
                 }}
               >
@@ -337,8 +337,8 @@ export default function HomePage() {
         data-section="2"
         className="relative min-h-screen flex items-center justify-center py-24"
         style={{
-          transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 2) * 0.1}px)`,
-          opacity: Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 1.5) / (window.innerHeight * 0.5)))
+          transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 2) * 0.1 : 0}px)`,
+          opacity: typeof window !== 'undefined' ? Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 1.5) / (window.innerHeight * 0.5))) : 1
         }}
       >
         <div className="container mx-auto px-4">
@@ -346,7 +346,7 @@ export default function HomePage() {
             <h2 
               className="text-4xl md:text-5xl font-bold mb-6 text-gradient cursor-text"
               style={{
-                transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 2) * 0.2}px) scale(${Math.max(0.9, 1 - Math.max(0, scrollY - window.innerHeight * 2) / 1000)})`
+                transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 2) * 0.2 : 0}px) scale(${Math.max(0.9, 1 - Math.max(0, scrollY - window.innerHeight * 2) / 1000)})`
               }}
             >
               Featured Courses
@@ -354,14 +354,14 @@ export default function HomePage() {
             <p 
               className="text-xl text-foreground/70 max-w-2xl mx-auto cursor-text"
               style={{
-                transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 2) * 0.15}px)`
+                transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 2) * 0.15 : 0}px)`
               }}
             >
               Start your learning journey with our carefully crafted courses, 
               designed by industry experts to help you succeed.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredCourses.map((course, index) => (
               <div
@@ -369,8 +369,8 @@ export default function HomePage() {
                 className="group hero-text-animate cursor-card interactive"
                 style={{ 
                   animationDelay: `${0.2 + index * 0.1}s`,
-                  transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 2) * 0.1 + index * 30}px) translateY(${Math.max(0, scrollY - window.innerHeight * 2) * 0.03}px) rotateY(${index * 8}deg)`,
-                  opacity: Math.max(0.6, Math.min(1, (scrollY - window.innerHeight * 1.8) / (window.innerHeight * 0.3)))
+                  transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 2) * 0.1 + index * 30 : 0}px) translateY(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 2) * 0.03 : 0}px) rotateY(${index * 8}deg)`,
+                  opacity: typeof window !== 'undefined' ? Math.max(0.6, Math.min(1, (scrollY - window.innerHeight * 1.8) / (window.innerHeight * 0.3))) : 1
                 }}
               >
                 <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 card-premium card-hover-3d h-full">
@@ -423,12 +423,12 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          
+
           <div 
             className="text-center mt-16 hero-text-animate"
             style={{
-              transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 2) * 0.1}px)`,
-              opacity: Math.max(0.7, Math.min(1, (scrollY - window.innerHeight * 1.9) / (window.innerHeight * 0.2)))
+              transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 2) * 0.1 : 0}px)`,
+              opacity: typeof window !== 'undefined' ? Math.max(0.7, Math.min(1, (scrollY - window.innerHeight * 1.9) / (window.innerHeight * 0.2))) : 1
             }}
           >
             <div className="interactive cursor-button">
@@ -448,8 +448,8 @@ export default function HomePage() {
         data-section="3"
         className="relative min-h-screen flex items-center justify-center py-24"
         style={{
-          transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 3) * 0.1}px)`,
-          opacity: Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 2.5) / (window.innerHeight * 0.5)))
+          transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 3) * 0.1 : 0}px)`,
+          opacity: typeof window !== 'undefined' ? Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 2.5) / (window.innerHeight * 0.5))) : 1
         }}
       >
         <div className="container mx-auto px-4">
@@ -457,7 +457,7 @@ export default function HomePage() {
             <h2 
               className="text-4xl md:text-5xl font-bold mb-6 text-gradient cursor-text"
               style={{
-                transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 3) * 0.2}px) scale(${Math.max(0.9, 1 - Math.max(0, scrollY - window.innerHeight * 3) / 1000)})`
+                transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 3) * 0.2 : 0}px) scale(${Math.max(0.9, 1 - Math.max(0, scrollY - window.innerHeight * 3) / 1000)})`
               }}
             >
               What Our Students Say
@@ -465,13 +465,13 @@ export default function HomePage() {
             <p 
               className="text-xl text-foreground/70 max-w-2xl mx-auto cursor-text"
               style={{
-                transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 3) * 0.15}px)`
+                transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 3) * 0.15 : 0}px)`
               }}
             >
               Join thousands of learners who have transformed their careers with our courses.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <div
@@ -479,8 +479,8 @@ export default function HomePage() {
                 className="p-6 rounded-2xl bg-card border border-border hover:border-orange-500/30 transition-all duration-300 card-premium hero-text-animate cursor-card interactive"
                 style={{ 
                   animationDelay: `${0.2 + index * 0.1}s`,
-                  transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 3) * 0.1 + index * 25}px) translateY(${Math.max(0, scrollY - window.innerHeight * 3) * 0.02}px) rotateY(${index * 6}deg)`,
-                  opacity: Math.max(0.6, Math.min(1, (scrollY - window.innerHeight * 2.8) / (window.innerHeight * 0.3)))
+                  transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 3) * 0.1 + index * 25 : 0}px) translateY(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 3) * 0.02 : 0}px) rotateY(${index * 6}deg)`,
+                  opacity: typeof window !== 'undefined' ? Math.max(0.6, Math.min(1, (scrollY - window.innerHeight * 2.8) / (window.innerHeight * 0.3))) : 1
                 }}
               >
                 <div className="flex items-center mb-4 cursor-text">
@@ -511,8 +511,8 @@ export default function HomePage() {
         data-section="4"
         className="relative min-h-screen flex items-center justify-center py-24"
         style={{
-          transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 4) * 0.1}px)`,
-          opacity: Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 3.5) / (window.innerHeight * 0.5)))
+          transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 4) * 0.1 : 0}px)`,
+          opacity: typeof window !== 'undefined' ? Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 3.5) / (window.innerHeight * 0.5))) : 1
         }}
       >
         <div className="container mx-auto px-4">
@@ -520,7 +520,7 @@ export default function HomePage() {
             <h2 
               className="text-4xl md:text-5xl font-bold mb-6 text-gradient cursor-text"
               style={{
-                transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 4) * 0.2}px) scale(${Math.max(0.9, 1 - Math.max(0, scrollY - window.innerHeight * 4) / 1000)})`
+                transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 4) * 0.2 : 0}px) scale(${Math.max(0.9, 1 - Math.max(0, scrollY - window.innerHeight * 4) / 1000)})`
               }}
             >
               Our Achievements
@@ -528,13 +528,13 @@ export default function HomePage() {
             <p 
               className="text-xl text-foreground/70 max-w-2xl mx-auto cursor-text"
               style={{
-                transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 4) * 0.15}px)`
+                transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 4) * 0.15 : 0}px)`
               }}
             >
               Trusted by learners worldwide and recognized by industry leaders.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {achievements.map((achievement, index) => (
               <div
@@ -542,8 +542,8 @@ export default function HomePage() {
                 className="text-center p-6 rounded-2xl bg-card border border-border hover:border-orange-500/30 transition-all duration-300 card-premium hero-text-animate cursor-card interactive"
                 style={{ 
                   animationDelay: `${0.2 + index * 0.1}s`,
-                  transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 4) * 0.1 + index * 20}px) translateY(${Math.max(0, scrollY - window.innerHeight * 4) * 0.03}px) rotateY(${index * 4}deg)`,
-                  opacity: Math.max(0.6, Math.min(1, (scrollY - window.innerHeight * 3.8) / (window.innerHeight * 0.3)))
+                  transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 4) * 0.1 + index * 20 : 0}px) translateY(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 4) * 0.03 : 0}px) rotateY(${index * 4}deg)`,
+                  opacity: typeof window !== 'undefined' ? Math.max(0.6, Math.min(1, (scrollY - window.innerHeight * 3.8) / (window.innerHeight * 0.3))) : 1
                 }}
               >
                 <div className="flex justify-center mb-4 text-orange-500 cursor-magnet">
@@ -562,21 +562,21 @@ export default function HomePage() {
         data-section="5"
         className="relative min-h-screen flex items-center justify-center py-24 bg-gradient-to-r from-orange-500/10 to-purple-500/10"
         style={{
-          transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 5) * 0.1}px)`,
-          opacity: Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 4.5) / (window.innerHeight * 0.5)))
+          transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 5) * 0.1 : 0}px)`,
+          opacity: typeof window !== 'undefined' ? Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 4.5) / (window.innerHeight * 0.5))) : 1
         }}
       >
         <div className="container mx-auto px-4 text-center">
           <div 
             className="hero-text-animate"
             style={{
-              transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 5) * 0.2}px) scale(${Math.max(0.9, 1 - Math.max(0, scrollY - window.innerHeight * 5) / 1000)})`
+              transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 5) * 0.2 : 0}px) scale(${Math.max(0.9, 1 - Math.max(0, scrollY - window.innerHeight * 5) / 1000)})`
             }}
           >
             <h2 
               className="text-4xl md:text-5xl font-bold mb-6 text-gradient cursor-text"
               style={{
-                transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 5) * 0.3}px)`
+                transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 5) * 0.3 : 0}px)`
               }}
             >
               Ready to Start Learning?
@@ -584,7 +584,7 @@ export default function HomePage() {
             <p 
               className="text-xl mb-8 text-foreground/80 max-w-2xl mx-auto cursor-text"
               style={{
-                transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 5) * 0.25}px)`
+                transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 5) * 0.25 : 0}px)`
               }}
             >
               Join our growing community of learners who are transforming their careers 
@@ -593,7 +593,7 @@ export default function HomePage() {
             <div 
               className="flex flex-col sm:flex-row gap-4 justify-center"
               style={{
-                transform: `translateZ(${Math.max(0, scrollY - window.innerHeight * 5) * 0.2}px)`
+                transform: `translateZ(${typeof window !== 'undefined' ? Math.max(0, scrollY - window.innerHeight * 5) * 0.2 : 0}px)`
               }}
             >
               <div className="interactive cursor-button">
@@ -639,4 +639,4 @@ export default function HomePage() {
       </div>
     </div>
   )
-} 
+}

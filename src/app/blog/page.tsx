@@ -122,7 +122,7 @@ export default function BlogPage() {
                   <h2 className="text-2xl font-bold text-foreground mb-4">{post.title}</h2>
                   <p className="text-foreground/80 mb-6 leading-relaxed">{post.excerpt}</p>
                   <Button asChild className="btn-futuristic btn-haptic w-fit">
-                    <Link href={`/blog/${post.id}`}>
+                    <Link href={`/blog/${post.slug}`}>
                       Read More
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
@@ -200,7 +200,7 @@ export default function BlogPage() {
               </CardHeader>
               <CardContent>
                 <Button asChild className="btn-futuristic btn-haptic w-full">
-                  <Link href={`/blog/${post.id}`}>
+                  <Link href={`/blog/${post.slug}`}>
                     Read Article
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
