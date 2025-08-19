@@ -1,11 +1,37 @@
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
 
-export function middleware(request: NextRequest) {
-  // For now, just pass through all requests to avoid Clerk-related errors
-  // This can be re-enabled once Clerk is properly configured
-  return NextResponse.next()
-}
+// Create route matcher for public routes
+const isPublicRoute = createRouteMatcher([
+  '/',
+  '/about',
+  '/blog',
+  '/contact',
+  '/courses',
+  '/courses/(.*)',
+  '/products',
+  '/products/(.*)',
+  '/help',
+  '/privacy',
+  '/terms',
+  '/auth/signin(.*)',
+  '/auth/signup(.*)',
+  '/api/courses',
+  '/api/products',
+])
+
+export default clerkMiddleware((auth, request) => {
+  // If Clerk is not properly configured, allow all requests
+  if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 
+      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY === 'pk_test_placeholder') {
+    return NextResponse.next()
+  }
+
+  // Protect routes that are not public
+  if (!isPublicRoute(request)) {
+    auth().protect()
+  }
+})
 
 export const config = {
   matcher: [
