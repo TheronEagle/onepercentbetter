@@ -1,4 +1,3 @@
-
 'use client'
 
 import { ClerkProvider } from '@clerk/nextjs'
@@ -11,48 +10,32 @@ interface ClerkProviderWrapperProps {
 export function ClerkProviderWrapper({ children }: ClerkProviderWrapperProps) {
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
-  // For development/demo mode when Clerk is not configured
-  if (!publishableKey || publishableKey === 'pk_test_placeholder' || publishableKey.length < 20) {
-    console.log('Clerk not configured - using demo mode')
-    return <>{children}</>
+  if (!publishableKey) {
+    console.error('Missing Clerk Publishable Key')
+    return <div className="text-red-500 p-4">Authentication service unavailable</div>
   }
 
-  // Production Clerk setup
   return (
     <ClerkProvider
       publishableKey={publishableKey}
       appearance={{
         baseTheme: undefined,
         variables: {
-          colorPrimary: '#667eea',
-          colorBackground: '#1a1a2e',
-          colorInputBackground: '#16213e',
+          colorPrimary: '#f97316',
+          colorBackground: '#000000',
+          colorInputBackground: '#1a1a1a',
           colorInputText: '#ffffff',
-          colorText: '#ffffff',
-          colorTextSecondary: '#a0a0a0',
-          colorShimmer: '#667eea',
-          borderRadius: '8px',
-          fontFamily: 'Inter, sans-serif',
         },
         elements: {
-          formButtonPrimary: {
-            backgroundColor: '#667eea',
-            '&:hover': {
-              backgroundColor: '#5a67d8',
-            },
-          },
-          card: {
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-          },
-          headerTitle: {
-            color: '#ffffff',
-          },
-          headerSubtitle: {
-            color: '#a0a0a0',
-          },
-        },
+          formButtonPrimary: 'bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600',
+          card: 'bg-black border border-white/10',
+          headerTitle: 'text-white',
+          headerSubtitle: 'text-white/70',
+          socialButtonsBlockButton: 'border border-white/10 text-white hover:bg-white/10',
+          formFieldLabel: 'text-white',
+          formFieldInput: 'bg-white/10 border-white/20 text-white',
+          footerActionLink: 'text-orange-500 hover:text-orange-400',
+        }
       }}
     >
       {children}

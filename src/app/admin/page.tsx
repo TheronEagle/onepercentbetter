@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -15,34 +14,23 @@ const isClerkConfigured = () => {
 }
 
 export default function AdminPage() {
+  const { user: clerkUser, isLoaded } = useUser()
+  const { signOut: clerkSignOut } = useClerk()
   const router = useRouter()
-  const [isLoaded, setIsLoaded] = useState(false)
   const [user, setUser] = useState<any>(null)
   const [isAdmin, setIsAdmin] = useState(false)
-
-  // Only use Clerk hooks if configured
-  let clerkUser = null
-  let signOut = null
-  
-  try {
-    if (isClerkConfigured()) {
-      clerkUser = useUser()
-      const clerk = useClerk()
-      signOut = clerk.signOut
-    }
-  } catch (error) {
-    console.log('Clerk hooks error:', error)
-  }
+  const [authChecked, setAuthChecked] = useState(false)
 
   useEffect(() => {
     const initializeAuth = async () => {
-      if (isClerkConfigured() && clerkUser) {
-        // Use Clerk authentication
-        if (clerkUser.isLoaded) {
-          if (clerkUser.user) {
-            setUser(clerkUser.user)
-            setIsAdmin(true)
-            setIsLoaded(true)
+      if (isClerkConfigured()) {
+        if (isLoaded) {
+          if (clerkUser) {
+            setUser(clerkUser)
+            // Check if user is admin (you can customize this logic)
+            const adminEmails = ['admin@example.com', 'owner@yourdomain.com', 'admin@1percentbetter.com'] // Added the demo admin email
+            setIsAdmin(adminEmails.includes(clerkUser.emailAddresses[0]?.emailAddress || ''))
+            setAuthChecked(true)
           } else {
             router.push('/auth/signin?redirect=/admin')
           }
@@ -53,33 +41,33 @@ export default function AdminPage() {
         if (fallbackUser) {
           const userData = JSON.parse(fallbackUser)
           setUser(userData)
-          setIsAdmin(true)
-          setIsLoaded(true)
+          setIsAdmin(true) // Assume admin in demo mode if user data exists
         } else {
-          // Allow admin access in development
+          // Allow admin access in development without user data
           setUser({ 
             firstName: 'Admin', 
             emailAddresses: [{ emailAddress: 'admin@1percentbetter.com' }] 
           })
           setIsAdmin(true)
-          setIsLoaded(true)
         }
+        setAuthChecked(true)
+        setIsLoaded(true) // Ensure isLoaded is true for demo mode
       }
     }
 
     initializeAuth()
-  }, [clerkUser?.isLoaded, clerkUser?.user, router])
+  }, [isLoaded, clerkUser, router]) // Dependencies include clerkUser
 
   const handleSignOut = async () => {
-    if (isClerkConfigured() && signOut) {
-      await signOut()
+    if (isClerkConfigured() && clerkSignOut) {
+      await clerkSignOut()
     } else {
       localStorage.removeItem('user')
     }
     router.push('/')
   }
 
-  if (!isLoaded) {
+  if (!isLoaded || !authChecked) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
         <div className="text-white text-xl">Loading...</div>
@@ -87,9 +75,25 @@ export default function AdminPage() {
     )
   }
 
+  if (!user) {
+    // This case should ideally be handled by the redirect in useEffect,
+    // but as a safeguard, we can return null or a loading indicator again.
+    // router.push('/auth/signin?redirect=/admin') // Redundant if already handled
+    return null 
+  }
+
   if (!isAdmin) {
-    router.push('/auth/signin?redirect=/admin')
-    return null
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4 text-white">Access Denied</h1>
+          <p className="text-white/70 mb-6">You don't have permission to access this area.</p>
+          <Button onClick={() => router.push('/')} className="bg-blue-600 hover:bg-blue-700 text-white">
+            Go Home
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -142,7 +146,7 @@ export default function AdminPage() {
               <Users className="h-8 w-8 text-blue-400" />
             </div>
           </div>
-          
+
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
             <div className="flex items-center justify-between">
               <div>
@@ -152,7 +156,7 @@ export default function AdminPage() {
               <BookOpen className="h-8 w-8 text-green-400" />
             </div>
           </div>
-          
+
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
             <div className="flex items-center justify-between">
               <div>
@@ -162,7 +166,7 @@ export default function AdminPage() {
               <DollarSign className="h-8 w-8 text-yellow-400" />
             </div>
           </div>
-          
+
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
             <div className="flex items-center justify-between">
               <div>
