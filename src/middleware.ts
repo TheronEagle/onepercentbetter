@@ -7,6 +7,7 @@ const isPublicRoute = createRouteMatcher([
   '/',
   '/about',
   '/blog',
+  '/blog/(.*)',
   '/contact',
   '/courses',
   '/courses/(.*)',
@@ -19,6 +20,8 @@ const isPublicRoute = createRouteMatcher([
   '/auth/signup(.*)',
   '/api/courses',
   '/api/products',
+  '/api/blog',
+  '/api/blog/(.*)',
 ])
 
 export default clerkMiddleware((auth, request) => {
@@ -30,7 +33,7 @@ export default clerkMiddleware((auth, request) => {
 
   // Protect routes that are not public
   if (!isPublicRoute(request)) {
-    auth().protect()
+    auth.protect()
   }
 })
 

@@ -13,7 +13,9 @@ export default function BlogPage() {
       readTime: '5 min read',
       date: '2024-01-15',
       image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=250&fit=crop',
-      featured: true
+      featured: true,
+      slug: 'the-power-of-1-percent-improvements',
+      tags: ['productivity', 'self-improvement', 'growth']
     },
     {
       id: '2',
@@ -22,7 +24,8 @@ export default function BlogPage() {
       category: 'Technology',
       readTime: '8 min read',
       date: '2024-01-12',
-      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop'
+      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop',
+      slug: 'mastering-web-development-roadmap'
     },
     {
       id: '3',
@@ -31,7 +34,8 @@ export default function BlogPage() {
       category: 'Marketing',
       readTime: '6 min read',
       date: '2024-01-10',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop'
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop',
+      slug: 'digital-marketing-strategies-2024'
     },
     {
       id: '4',
@@ -40,7 +44,8 @@ export default function BlogPage() {
       category: 'Education',
       readTime: '7 min read',
       date: '2024-01-08',
-      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop'
+      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop',
+      slug: 'future-of-online-learning'
     },
     {
       id: '5',
@@ -49,7 +54,8 @@ export default function BlogPage() {
       category: 'Technology',
       readTime: '9 min read',
       date: '2024-01-05',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop'
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop',
+      slug: 'successful-career-data-science'
     },
     {
       id: '6',
@@ -58,7 +64,8 @@ export default function BlogPage() {
       category: 'Design',
       readTime: '4 min read',
       date: '2024-01-03',
-      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=250&fit=crop'
+      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=250&fit=crop',
+      slug: 'design-principles-professionals'
     }
   ]
 
@@ -221,4 +228,3 @@ export default function BlogPage() {
     </div>
   )
 }
-

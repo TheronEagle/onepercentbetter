@@ -286,8 +286,8 @@ export default function HomePage() {
         data-section="1"
         className="relative min-h-screen flex items-center justify-center py-24"
         style={{
-          transform: `translateZ(${Math.max(0, scrollY - window.innerHeight) * 0.1}px)`,
-          opacity: Math.max(0.3, Math.min(1, (scrollY - window.innerHeight * 0.5) / (window.innerHeight * 0.5)))
+          transform: `translateZ(${Math.max(0, scrollY - (typeof window !== 'undefined' ? window.innerHeight : 0)) * 0.1}px)`,
+          opacity: Math.max(0.3, Math.min(1, (scrollY - (typeof window !== 'undefined' ? window.innerHeight : 0) * 0.5) / ((typeof window !== 'undefined' ? window.innerHeight : 0) * 0.5)))
         }}
       >
         <div className="container mx-auto px-4">
