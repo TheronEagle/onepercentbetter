@@ -1,3 +1,4 @@
+
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -31,28 +32,71 @@ import {
   Music,
   Archive
 } from 'lucide-react'
-import { useUser, useClerk } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 
+// Dynamic import to handle cases where Clerk might not be available
+let useUser: any = null
+let useClerk: any = null
+
+try {
+  const clerkHooks = require('@clerk/nextjs')
+  useUser = clerkHooks.useUser
+  useClerk = clerkHooks.useClerk
+} catch (error) {
+  console.log('Clerk not available, using fallback')
+}
+
 export default function AdminPage() {
-  const { user, isLoaded } = useUser()
-  const { signOut } = useClerk()
   const router = useRouter()
   const [isAdmin, setIsAdmin] = useState(false)
-  const [activeTab, setActiveTab] = useState('dashboard')
+  const [user, setUser] = useState<any>(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  // Check if Clerk is properly configured
+  const isClerkConfigured = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && 
+                           process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY !== 'pk_test_placeholder'
+
+  // Use Clerk hooks if available and configured
+  let clerkUser = null
+  let clerkIsLoaded = false
+  let signOut = null
+
+  if (isClerkConfigured && useUser && useClerk) {
+    try {
+      const clerkUserData = useUser()
+      clerkUser = clerkUserData.user
+      clerkIsLoaded = clerkUserData.isLoaded
+      signOut = useClerk().signOut
+    } catch (error) {
+      console.log('Error using Clerk hooks:', error)
+    }
+  }
 
   useEffect(() => {
-    if (isLoaded) {
-      if (!user) {
-        router.push('/auth/signin?redirect=/admin')
-        return
+    if (isClerkConfigured) {
+      // Use Clerk authentication
+      if (clerkIsLoaded) {
+        if (!clerkUser) {
+          router.push('/auth/signin?redirect=/admin')
+          return
+        }
+        setUser(clerkUser)
+        setIsAdmin(true)
+        setIsLoaded(true)
       }
+    } else {
+      // Fallback for development when Clerk is not configured
+      console.log('Clerk not configured, allowing admin access for development')
+      setUser({ firstName: 'Admin', emailAddresses: [{ emailAddress: 'admin@1percentbetter.com' }] })
       setIsAdmin(true)
+      setIsLoaded(true)
     }
-  }, [user, isLoaded, router])
+  }, [clerkUser, clerkIsLoaded, router, isClerkConfigured])
 
   const handleSignOut = async () => {
-    await signOut()
+    if (signOut) {
+      await signOut()
+    }
     router.push('/')
   }
 
@@ -197,8 +241,13 @@ export default function AdminPage() {
             <div>
               <h1 className="text-3xl font-bold text-white mb-2">Admin Dashboard</h1>
               <p className="text-white/70 font-medium">
-                Welcome back, {user?.firstName || user?.emailAddresses[0]?.emailAddress}
+                Welcome back, {user?.firstName || user?.emailAddresses?.[0]?.emailAddress || 'Admin'}
               </p>
+              {!isClerkConfigured && (
+                <p className="text-yellow-400 text-sm mt-1">
+                  Development Mode - Clerk not configured
+                </p>
+              )}
             </div>
             <div className="flex items-center space-x-4">
               <Link 
@@ -507,4 +556,4 @@ export default function AdminPage() {
       </div>
     </div>
   )
-} 
+}

@@ -3,65 +3,87 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { BookOpen, User, Menu, X, Settings, LogOut, Crown, ChevronDown, Sparkles, Zap } from 'lucide-react'
+import { Menu, X, BookOpen, User, Settings, LogOut } from 'lucide-react'
+import { useAnimation } from '@/lib/animation-context'
 
-interface User {
-  email: string
-  firstName: string
-  lastName: string
+// Dynamic import to handle cases where Clerk might not be available
+let useUser: any = null
+let useClerk: any = null
+
+try {
+  const clerkHooks = require('@clerk/nextjs')
+  useUser = clerkHooks.useUser
+  useClerk = clerkHooks.useClerk
+} catch (error) {
+  console.log('Clerk not available, using fallback')
 }
 
 export default function Navigation() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
-  const [user, setUser] = useState<User | null>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const { cursorVariant, setCursorVariant, cursorText, setCursorText } = useAnimation()
+
+  // Check if Clerk is properly configured
+  const isClerkConfigured = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && 
+                           process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY !== 'pk_test_placeholder'
+
+  // Use Clerk hooks if available and configured
+  let user = null
+  let isLoaded = false
+  let signOut = null
+
+  if (isClerkConfigured && useUser && useClerk) {
+    try {
+      const clerkUserData = useUser()
+      user = clerkUserData.user
+      isLoaded = clerkUserData.isLoaded
+      signOut = useClerk().signOut
+    } catch (error) {
+      console.log('Error using Clerk hooks:', error)
+      isLoaded = true // Set to true to avoid infinite loading
+    }
+  } else {
+    isLoaded = true // Set to true when not using Clerk
+  }
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
+      setScrolled(window.scrollY > 50)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    // Check for user in localStorage
-    const storedUser = localStorage.getItem('user')
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser))
-      } catch (error) {
-        console.error('Error parsing user data:', error)
-        localStorage.removeItem('user')
-      }
-    }
-    setIsLoaded(true)
-  }, [])
-
-  const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'Courses', href: '/courses' },
-    { name: 'Products', href: '/products' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
-  ]
-
-  const handleSignOut = () => {
-    localStorage.removeItem('user')
-    setUser(null)
-    setIsUserMenuOpen(false)
-    router.push('/')
+  const handleCursorEnter = (variant: any, text = '') => {
+    setCursorVariant(variant)
+    setCursorText(text)
   }
 
+  const handleCursorLeave = () => {
+    setCursorVariant('default')
+    setCursorText('')
+  }
+
+  const handleSignOut = async () => {
+    if (signOut) {
+      await signOut()
+    }
+  }
+
+  const navLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/courses', label: 'Courses' },
+    { href: '/products', label: 'Products' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/about', label: 'About' },
+    { href: '/contact', label: 'Contact' },
+  ]
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200/50' 
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${
+      scrolled 
+        ? 'bg-background/95 backdrop-blur-xl border-b border-white/10 shadow-2xl' 
         : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-4">
@@ -69,169 +91,155 @@ export default function Navigation() {
           {/* Logo */}
           <Link 
             href="/" 
-            className="flex items-center space-x-2 group"
-            onClick={() => setIsMenuOpen(false)}
+            className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+            onMouseEnter={() => handleCursorEnter('button', 'Home')}
+            onMouseLeave={handleCursorLeave}
           >
-            <div className="relative">
-              <BookOpen className="h-8 w-8 text-indigo-600 group-hover:text-indigo-700 transition-colors" />
-              <Sparkles className="h-3 w-3 text-yellow-500 absolute -top-1 -right-1 animate-pulse" />
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              1% Better
-            </span>
+            1% Better
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
+            {navLinks.map((link) => (
               <Link
-                key={item.name}
-                href={item.href}
-                className="text-gray-700 hover:text-indigo-600 font-medium transition-colors relative group"
+                key={link.href}
+                href={link.href}
+                className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group"
+                onMouseEnter={() => handleCursorEnter('button', link.label)}
+                onMouseLeave={handleCursorLeave}
               >
-                {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
           </div>
 
-          {/* User Section */}
+          {/* User Menu */}
           <div className="hidden md:flex items-center space-x-4">
-            {isLoaded && user ? (
-              <div className="relative">
-                <button
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center space-x-2 text-gray-700 hover:text-indigo-600 transition-colors"
+            {!isLoaded ? (
+              <div className="animate-pulse">
+                <div className="h-8 w-20 bg-white/20 rounded"></div>
+              </div>
+            ) : user ? (
+              <div className="flex items-center space-x-4">
+                <Link
+                  href="/admin"
+                  className="text-white/80 hover:text-white transition-colors font-medium"
+                  onMouseEnter={() => handleCursorEnter('button', 'Admin')}
+                  onMouseLeave={handleCursorLeave}
                 >
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white text-sm font-semibold">
-                    {user.firstName?.charAt(0) || 'U'}
-                  </div>
-                  <span className="font-medium">{user.firstName}</span>
-                  <ChevronDown className={`h-4 w-4 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-                {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                    <Link
-                      href="/profile"
-                      className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
-                      onClick={() => setIsUserMenuOpen(false)}
-                    >
-                      <User className="h-4 w-4 mr-2" />
-                      Profile
-                    </Link>
-                    <Link
-                      href="/admin"
-                      className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
-                      onClick={() => setIsUserMenuOpen(false)}
-                    >
-                      <Crown className="h-4 w-4 mr-2" />
-                      Admin
-                    </Link>
-                    <button
-                      onClick={handleSignOut}
-                      className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      <LogOut className="h-4 w-4 mr-2" />
-                      Sign Out
-                    </button>
-                  </div>
-                )}
+                  <Settings className="h-5 w-5" />
+                </Link>
+                <div className="flex items-center space-x-2">
+                  <span className="text-white/80 text-sm">
+                    {user.firstName || user.emailAddresses?.[0]?.emailAddress}
+                  </span>
+                  <Button
+                    onClick={handleSignOut}
+                    variant="ghost"
+                    size="sm"
+                    className="text-white/80 hover:text-white hover:bg-white/10"
+                    onMouseEnter={() => handleCursorEnter('button', 'Sign Out')}
+                    onMouseLeave={handleCursorLeave}
+                  >
+                    <LogOut className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             ) : (
-              <div className="flex items-center space-x-3">
-                <Link href="/auth/signin">
-                  <Button variant="outline" size="sm" className="border-indigo-200 text-indigo-600 hover:bg-indigo-50">
-                    Sign In
-                  </Button>
+              <div className="flex items-center space-x-4">
+                <Link 
+                  href="/auth/signin"
+                  className="text-white/80 hover:text-white transition-colors font-medium"
+                  onMouseEnter={() => handleCursorEnter('button', 'Sign In')}
+                  onMouseLeave={handleCursorLeave}
+                >
+                  Sign In
                 </Link>
-                <Link href="/auth/signup">
-                  <Button size="sm" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg">
-                    <Zap className="h-4 w-4 mr-1" />
-                    Get Started
-                  </Button>
-                </Link>
+                <Button 
+                  asChild
+                  className="btn-futuristic btn-haptic bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80"
+                  onMouseEnter={() => handleCursorEnter('button', 'Get Started')}
+                  onMouseLeave={handleCursorLeave}
+                >
+                  <Link href="/auth/signup">Get Started</Link>
+                </Button>
               </div>
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          {/* Mobile menu button */}
+          <Button
+            variant="ghost"
+            className="md:hidden text-white hover:bg-white/10"
+            onClick={() => setIsOpen(!isOpen)}
+            onMouseEnter={() => handleCursorEnter('button')}
+            onMouseLeave={handleCursorLeave}
           >
-            {isMenuOpen ? (
-              <X className="h-6 w-6 text-gray-600" />
-            ) : (
-              <Menu className="h-6 w-6 text-gray-600" />
-            )}
-          </button>
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
         </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200 bg-white/95 backdrop-blur-md">
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-background/95 backdrop-blur-xl rounded-lg border border-white/10 mt-2">
+              {navLinks.map((link) => (
                 <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-700 hover:text-indigo-600 font-medium transition-colors px-4 py-2"
-                  onClick={() => setIsMenuOpen(false)}
+                  key={link.href}
+                  href={link.href}
+                  className="block px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors font-medium"
+                  onClick={() => setIsOpen(false)}
                 >
-                  {item.name}
+                  {link.label}
                 </Link>
               ))}
               
-              {isLoaded && user ? (
-                <div className="border-t border-gray-200 pt-4 px-4">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold">
-                      {user.firstName?.charAt(0) || 'U'}
-                    </div>
-                    <div>
-                      <div className="font-medium text-gray-900">{user.firstName} {user.lastName}</div>
-                      <div className="text-sm text-gray-500">{user.email}</div>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Link
-                      href="/profile"
-                      className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <User className="h-4 w-4 mr-2" />
-                      Profile
-                    </Link>
-                    <Link
-                      href="/admin"
-                      className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <Crown className="h-4 w-4 mr-2" />
-                      Admin
-                    </Link>
-                    <button
-                      onClick={handleSignOut}
-                      className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors"
-                    >
-                      <LogOut className="h-4 w-4 mr-2" />
-                      Sign Out
-                    </button>
+              <hr className="border-white/10 my-2" />
+              
+              {!isLoaded ? (
+                <div className="px-3 py-2">
+                  <div className="animate-pulse">
+                    <div className="h-8 w-20 bg-white/20 rounded"></div>
                   </div>
                 </div>
-              ) : (
-                <div className="border-t border-gray-200 pt-4 px-4 space-y-3">
-                  <Link href="/auth/signin" onClick={() => setIsMenuOpen(false)}>
-                    <Button variant="outline" className="w-full border-indigo-200 text-indigo-600 hover:bg-indigo-50">
-                      Sign In
-                    </Button>
+              ) : user ? (
+                <div className="space-y-1">
+                  <div className="px-3 py-2 text-sm text-white/60">
+                    {user.firstName || user.emailAddresses?.[0]?.emailAddress}
+                  </div>
+                  <Link
+                    href="/admin"
+                    className="block px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors font-medium"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Admin Dashboard
                   </Link>
-                  <Link href="/auth/signup" onClick={() => setIsMenuOpen(false)}>
-                    <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white">
-                      <Zap className="h-4 w-4 mr-1" />
-                      Get Started
-                    </Button>
+                  <button
+                    onClick={() => {
+                      handleSignOut()
+                      setIsOpen(false)
+                    }}
+                    className="block w-full text-left px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors font-medium"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-1">
+                  <Link
+                    href="/auth/signin"
+                    className="block px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors font-medium"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/auth/signup"
+                    className="block px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors font-medium"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Get Started
                   </Link>
                 </div>
               )}
